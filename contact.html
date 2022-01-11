@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{%block title%} Contact {%endblock title%}
+
+{%block body%}<img src="/static/img/contact.jpg">
+<u><div class= "text-center"><h3>Contact Us </h3></u></div>
+
+<div class="container mb-3 py-4">
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+  Your message has been Sent!!
+</div>
+{% endfor %}
+{% endif %}
+<form method="post" action="/contact/">
+{% csrf_token %}
+<label for="Contactus" class="form-label">Name</label>
+  <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+  <label for="Contactus" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+<br>
+  <label for="Contactus" class="form-label">Message</label>
+  <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+  <br>
+  <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+</div>
+
+ {%endblock body%}
+ 
