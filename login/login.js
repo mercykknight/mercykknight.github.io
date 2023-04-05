@@ -1,6 +1,5 @@
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
-
 //set up button so that page don't reload..
 
 document.getElementById("submit").addEventListener("click", function(event){
