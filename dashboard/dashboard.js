@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import "https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js";
+import "https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 //import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
@@ -33,8 +34,9 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-    
-    
+  }
+  
+//  function userdetails(){
     //finding data of user
     const database = firebase.database();
 
@@ -49,7 +51,6 @@ if (!user) {
       const username = Object.keys(userData)[0];
       
       const { first_name, last_name ,profession,userId,email} = userData[username];
-      console.log('Username:', username);
       // console.log('Username:', first_name);
       document.getElementById("user").innerHTML = username;
     } else {
@@ -60,10 +61,10 @@ if (!user) {
   .catch((error) => {
     console.error(error);
   });
+//}
 
-    // ...
-}
 });
+
 
 
 // Get the email or username to search for
@@ -87,5 +88,120 @@ function logout(){
   }).catch((error) => {
     // An error happened.
   });
-}           
+}      
+
+
+
+
+//Function for posting A POst
+
+function post1(){
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+    var title = document.getElementById("title").value;
+    var description = document.getElementById("description").value;
+    var detail = document.getElementById("detail").value;
+    var theme = document.getElementById("theme").files[0];
+    var themename = rightnow();
+
+    var storageRef = firebase.storage().ref('images/'+themename);
+    var uploadTask = storageRef.put(theme);
+    uploadTask.on('state_changed',function(snapshot){
+      var progress=(snapshot.bytesTranferred/snapshot.totalBytes)*100;
+    },function(error){
+        console.log(error.message);
+    },function(){
+      const auth = getAuth();
+      //console.log(user);
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
+        firebase.database().ref('blogs').push().set({
+          title:title,
+          author: user.email,
+          date: rightnow(),
+          description:description,
+          detail:detail,
+          fileUrl:downloadURL
+        },function(error){
+          if(error){
+            console.log("Error while uploading" ,error);
+          }
+          else{
+            console.log("POst uploaded sucessfully");
+            alert("Post successfully uploaded");
+            document.getElementById('post-form').reset();
+          }
+        })
+      })
+    });
+
+}
+});
+}
+
+
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//   // The user object has basic properties such as display name, email, etc.
+//   const displayName = user.displayName;
+//   const email = user.email;
+//   const photoURL = user.photoURL;
+//   const emailVerified = user.emailVerified;
+//   // The user's ID, unique to the Firebase project. Do NOT use
+//   // this value to authenticate with your backend server, if
+//   // you have one. Use User.getToken() instead.
+//   const uid = user.uid;
+// }
+// });
+
+
+function rightnow(){
+  var currentDate = new Date();
+  var year = currentDate.getFullYear();
+  var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  var day = currentDate.getDate().toString().padStart(2, '0');
+  var hours = currentDate.getHours().toString().padStart(2, '0');
+  var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+  var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+  var formattedDate = year + '-' + month + '-' + day + '_' + hours + '-' + minutes + '-' + seconds;
+  return(formattedDate);
+}
+
+//get all post from the firebase
+function getposts(){
+
+  firebase.database().ref('blogs').once('value').then(function(snapshot){
+    //get your posts div
+    var posts_div=document.getElementById('posts');
+    //remove all remaining data in that div
+    posts.innerHTML="";
+    //get data from firebase
+    var data=snapshot.val();
+    //console.log(data);
+    //now pass this data to our posts div
+    //we have to pass our data to for loop to get one by one
+    //we are passing the key of that post to delete it from database
+    for(let[key,value] of Object.entries(data)){
+      posts_div.innerHTML="<div class='col-sm-4 mt-2 mb-1'>"+
+      "<div class='card' style='padding:3%;'"+
+      "<h1><b><u>"+value.title+"</u></b></h1>"+
+      "<div class='card-body'><p class='card-text'>"+value.description+"</p>"+
+      "<br>by: "+value.author+"<button class= 'btn btn-danger' name='delete' id='"+key+"' style='float: right;'>delete</button></div></div></div>"+posts_div.innerHTML;
+    }
+  
+  });
+}
+function delete_post(key){
+
+  firebase.database().ref('blogs'+key).remove();
+  getposts();
+
+}
+
+window.onload=function(){
+  getposts();
+}
+
 document.getElementById("Logout").addEventListener('click',logout);
+document.getElementById('submit').addEventListener('click', post1);
+document.getElementsByName('delete').addEventListener('click', delete_post(this.id));

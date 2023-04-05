@@ -9,7 +9,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase
 import "https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js";
 
 //import { getAnalytics } from "firebase/analytics";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword , updateProfile} from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -68,6 +68,9 @@ function register(){
             // Signed in 
             const user = userCredential.user;
             const userId = userCredential.user.uid;
+            updateProfile(auth,user {
+              displayName: first_name+last_name
+            });
 
         // Save the user details to the Realtime Database
         firebase.database().ref('users/' + username).set({

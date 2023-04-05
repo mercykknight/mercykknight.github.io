@@ -75,17 +75,30 @@
 <!-- <div align="right">
   <input class="btn btn-primary" type="submit" id="Logout" name="Logout" value="Logout">
 </div> -->
-<h1> You are in DashBoard Currently and succesfully logged in....</h1>
-1.) Update till now you can access profile section and use it to view your profile details.
-  <br>  We are working on making post and updating them. 
-<center>
-<br>
-<h1><span id='user' style="color: purple;"></span><h1><br>
-<br>
-
-</center>
 
 
+<!-- BOdy start from here?///// -->
+<div>
+<h1> Blog.. </h1>
+<form id="post-form">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" placeholder="Title"><br>
+
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" placeholder="A short description"><br>
+
+  <label for="detail">Detail:</label>
+  <textarea id="detail" name="detail" placeholder="Write Your Blog"></textarea><br>
+
+  <label for="theme">File Upload:</label>
+  <input type="file" id="theme" name="theme" placeholder="Upload Your image"></input><br>
+</form>
+<input class="btn btn-success" type="submit" id="submit" name="POST" value="POST"">
+</div>
+
+<div class="row mt-4" id="posts">
+
+</div>
 
 </body>
 </html>
