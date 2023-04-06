@@ -109,7 +109,12 @@ function post1(){
       var storageRef = firebase.storage().ref('files/'+themename);
       var uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', function(snapshot) {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
+        // console.log("byte trasfered"+snapshot.bytesTransferred);
+        // console.log("byte total"+snapshot.totalBytes);
+        // console.log("progress"+progress);
+        var element = document.getElementById("myprogressBar");
+        element.style.width = progress + '%';
       }, function(error) {
         console.log(error.message);
       }, function() {
@@ -145,7 +150,6 @@ function post1(){
         if(error) {
           console.log("Error while uploading" ,error);
         } else {
-          console.log("Post uploaded successfully");
           alert("Post successfully uploaded");
           document.getElementById('post-form').reset();
           location.reload();

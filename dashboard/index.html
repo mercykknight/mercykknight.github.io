@@ -61,8 +61,26 @@
       #submit{
         width: 50%;
         margin: 0 auto;
+        position: relative;
 
       }
+      #Progress_Status {
+        width: 52%;
+        background-color: #ddd;
+        text-align: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+        
+      #myprogressBar {
+        width: 0%;
+        height: 7px;
+        background-color: #4CAF50;
+        text-align: center;
+        line-height: 10px;
+        color: black;
+      }
+
     </style>
   </head>
   <body>
@@ -142,8 +160,11 @@
   <option value="public">Public</option>
   <option value="private">Private</option>
 </select></div><br>
+<div id="Progress_Status">
+  <div id="myprogressBar"></div>
+</div>
 </form>
-<input class="btn btn-success" type="submit" id="submit" name="POST" value="POST"></div>
+<input class="btn btn-secondary" data-progress="0" type="submit" id="submit" name="POST" value="POST"></div>
 </div>
 <h2>&nbsp;&nbsp;Recent Posts: </h2><hr>
 <div class="row mt-4" id="posts">
