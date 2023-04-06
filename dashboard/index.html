@@ -20,7 +20,7 @@
         text-decoration: none;
         color: aliceblue;
       }
-      .post-form{
+      /* .post-form{
         margin: 30%;
         margin-top: 2px;
         margin-bottom: 4px;
@@ -31,6 +31,32 @@
         border-radius: 5px;
 
 
+      } */
+      /* Styles for desktop screens */
+      @media screen and (min-width: 768px) {
+        .post-form {
+          margin: 30%;
+          margin-top: 2px;
+          margin-bottom: 4px;
+          align-items: left;
+          justify-content: left;
+          background-color: gainsboro;
+          padding: 15px;
+          border-radius: 5px;
+        }
+      }
+
+      /* Styles for mobile screens */
+      @media screen and (max-width: 767px) {
+        .post-form {
+          margin: 0;
+          margin-bottom: 4px;
+          align-items: left;
+          justify-content: left;
+          background-color: gainsboro;
+          padding: 15px;
+          border-radius: 5px;
+        }
       }
       #submit{
         width: 50%;

@@ -102,7 +102,7 @@ if (!user) {
                 if (user) {
                     if(data.visible=="public"){
                         document.getElementById("title").innerHTML = data.title;
-                        document.getElementById("author").innerHTML = "By "+ data.author;   
+                        document.getElementById("author").innerHTML = "by "+ data.author;   
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
                         if(data.fileUrl!="none"){
@@ -112,7 +112,7 @@ if (!user) {
                     }else if(data.visible=="private"){
                         if(data.author==user.email){
                             document.getElementById("title").innerHTML = data.title;
-                            document.getElementById("author").innerHTML = "By "+ data.author;
+                            document.getElementById("author").innerHTML = "by "+ data.author;
                             document.getElementById("date-of-post").innerHTML = data.date;
                             document.getElementById("detail").innerHTML = data.detail;
                             if(data.fileUrl!="none"){
@@ -131,7 +131,7 @@ if (!user) {
                 else{
                     if(data.visible=="public"){
                         document.getElementById("title").innerHTML = data.title;
-                        document.getElementById("author").innerHTML = "By "+ data.author;
+                        document.getElementById("author").innerHTML = "by "+ data.author;
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
                         if(data.fileUrl!="none"){

@@ -15,24 +15,61 @@
               text-decoration: none;
               color: aliceblue;
             }
-            .blog-box{
+            /* .blog-box{
                 margin: 20%;
                 margin-top: 1%;
                 margin-bottom: 2%;
                 background-color: gainsboro;
                 padding: 4%;
                 border-radius: 5%;
+            } */
+
+            /* Styles for desktop screens */
+            @media screen and (min-width: 768px) {
+              .blog-box {
+                margin: 20%;
+                margin-top: 0%;
+                margin-bottom: 0%;
+                background-color: gainsboro;
+                padding: 4%;
+                border-radius: 5%;
+              }
             }
+
+            /* Styles for mobile screens */
+            @media screen and (max-width: 767px) {
+              .blog-box {
+                margin: 0%;
+                margin-top: 0%;
+                margin-bottom: 0%;
+                background-color: gainsboro;
+                padding: 4%;
+                border-radius: 1%;
+              }
+            }
+
             footer{
                 margin-bottom: 3%;
             }
-            .date-of-post{
+            /* .date-of-post{
+                font-family:fantasy;
+                float: left;
+                
+            } */
+            @media screen and (min-width:768px) {
+              .date-of-post{
                 font-family:fantasy;
                 float: right;
-                
+              }
+            }
+            @media screen and (max-width:767px) {
+              .date-of-post{
+                font-family:fantasy;
+                float: left;
+              }
             }
             .author{
-                font-family:fantasy;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
                 float: left;
             }
             .detail{
@@ -43,7 +80,7 @@
                 font-family:Georgia, 'Times New Roman', Times, serif;
             }
             .info-blog{
-                display: flex;
+                display:contents;
                 justify-content: space-between;
                 align-items: center;
             }
@@ -99,15 +136,15 @@
           </nav>
         <div class="blog-box">
         <b><span id="alert-info" role="alert" style="color: red;"></span></b>
-        <b><u><h1 class="title" id ="title"></h1></u></b>
+        <b><h2 class="title" id ="title"></h2></b><br>
         <div class="info-blog">
             <div class="author">
-        <i><h6 id="author"></h6></i></div>
-        <div class="date-of-post"><h6 id="date-of-post"></h6></div>
+        <h6 id="author"></h6></div>
+        <div class="date-of-post"><h6 id="date-of-post"></h6></div><br>
         </div>
-        <hr>
+        <br><hr>
         <h6 class="detail" id="detail"></h6>
-        <span class="downloadfile" id="downloadfile"></span>
+        <span class="downloadfile" id="downloadfile"></span><br><br>
         <p class="file" id="file"></p>
         <!-- <form>
             Comment on this topic
@@ -116,9 +153,10 @@
             <label for="comment"></label>
             <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
         </form> -->
-        </div>
         <footer><br><hr><center>All Copyright goes to @Pratham Upadhyay.</center>
             
         </footer>
+        </div>
+        
     </body>
 </html>
