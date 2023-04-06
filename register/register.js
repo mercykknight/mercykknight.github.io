@@ -68,9 +68,6 @@ function register(){
             // Signed in 
             const user = userCredential.user;
             const userId = userCredential.user.uid;
-            updateProfile(auth,user {
-              displayName: first_name+last_name
-            });
 
         // Save the user details to the Realtime Database
         firebase.database().ref('users/' + username).set({

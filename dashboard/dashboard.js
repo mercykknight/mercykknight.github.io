@@ -94,50 +94,118 @@ function logout(){
 
 
 //Function for posting A POst
-
 function post1(){
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
   if (user) {
     var title = document.getElementById("title").value;
-    var description = document.getElementById("description").value;
     var detail = document.getElementById("detail").value;
-    var theme = document.getElementById("theme").files[0];
+    var file = document.getElementById("file").files[0];
     var themename = rightnow();
+    var author = user.email;
+    var visible = document.getElementById("visible").value;
 
-    var storageRef = firebase.storage().ref('images/'+themename);
-    var uploadTask = storageRef.put(theme);
-    uploadTask.on('state_changed',function(snapshot){
-      var progress=(snapshot.bytesTranferred/snapshot.totalBytes)*100;
-    },function(error){
+    if(file){
+      var storageRef = firebase.storage().ref('files/'+themename);
+      var uploadTask = storageRef.put(file);
+      uploadTask.on('state_changed', function(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      }, function(error) {
         console.log(error.message);
-    },function(){
-      const auth = getAuth();
-      //console.log(user);
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
-        firebase.database().ref('blogs').push().set({
-          title:title,
-          author: user.email,
-          date: rightnow(),
-          description:description,
-          detail:detail,
-          fileUrl:downloadURL
-        },function(error){
-          if(error){
-            console.log("Error while uploading" ,error);
-          }
-          else{
-            console.log("POst uploaded sucessfully");
-            alert("Post successfully uploaded");
-            document.getElementById('post-form').reset();
-          }
+      }, function() {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          firebase.database().ref('blogs').push().set({
+            title: title,
+            author: author,
+            visible: visible,
+            date: rightnow(),
+            detail: detail,
+            fileUrl: downloadURL
+          }, function(error) {
+            if(error) {
+              console.log("Error while uploading" ,error);
+            } else {
+              console.log("Post uploaded successfully");
+              alert("Post successfully uploaded");
+              document.getElementById('post-form').reset();
+              location.reload();
+            }
+          })
         })
-      })
-    });
+      });
+    } else {
+      firebase.database().ref('blogs').push().set({
+        title: title,
+        author: author,
+        visible: visible,
+        date: rightnow(),
+        detail: detail,
+        fileUrl: "none"
+      }, function(error) {
+        if(error) {
+          console.log("Error while uploading" ,error);
+        } else {
+          console.log("Post uploaded successfully");
+          alert("Post successfully uploaded");
+          document.getElementById('post-form').reset();
+          location.reload();
+        }
+      });
+    }
 
+  }
+  });
 }
-});
-}
+
+
+
+//Old Post Function Us it if found any problem..
+// function post(){
+//   const auth = getAuth();
+//   onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     var title = document.getElementById("title").value;
+//     //var description = document.getElementById("description").value;
+//     var detail = document.getElementById("detail").value;
+//     var file = document.getElementById("file").files[0];
+//     var themename = rightnow();
+//     var author = user.email;
+//     var visible = document.getElementById("visible").value;
+//     var storageRef = firebase.storage().ref('files/'+themename);
+//     var uploadTask = storageRef.put(file);
+//     uploadTask.on('state_changed',function(snapshot){
+//       var progress=(snapshot.bytesTranferred/snapshot.totalBytes)*100;
+//     },function(error){
+//         console.log(error.message);
+//     },function(){
+//       //const auth = getAuth();
+//       //console.log(user);
+//       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
+//         firebase.database().ref('blogs').push().set({
+//           title:title,
+//           author: author,
+//           visible: visible,
+//           date: rightnow(),
+//           //description:description,
+//           detail:detail,
+//           fileUrl:downloadURL
+//         },function(error){
+//           if(error){
+//             console.log("Error while uploading" ,error);
+//           }
+//           else{
+//             console.log("POst uploaded sucessfully");
+//             alert("Post successfully uploaded");
+//             document.getElementById('post-form').reset();
+//             location.reload();
+//           }
+//         })
+//       })
+//     });
+
+// }
+// });
+// }
 
 
 // onAuthStateChanged(auth, (user) => {
@@ -169,7 +237,8 @@ function rightnow(){
 
 //get all post from the firebase
 function getposts(){
-
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
   firebase.database().ref('blogs').once('value').then(function(snapshot){
     //get your posts div
     var posts_div=document.getElementById('posts');
@@ -182,14 +251,17 @@ function getposts(){
     //we have to pass our data to for loop to get one by one
     //we are passing the key of that post to delete it from database
     for(let[key,value] of Object.entries(data)){
+      if(value.visible=='public'||value.author==user.email){
       posts_div.innerHTML="<div class='col-sm-4 mt-2 mb-1'>"+
-      "<div class='card' style='padding:3%;'"+
+      "<div class='card' style='padding:3%;'<h6><i>"+value.date+"</i></h6>"+
       "<h1><b><u>"+value.title+"</u></b></h1>"+
-      "<div class='card-body'><p class='card-text'>"+value.description+"</p>"+
-      "<br>by: "+value.author+"<button class= 'btn btn-danger' name='delete' id='"+key+"' style='float: right;'>delete</button></div></div></div>"+posts_div.innerHTML;
+      "<div class='card-body'><p class='card-text'>"+value.detail.slice(0,200)+"....</p>"+
+      "<br>by: "+value.author+"<a href= '/view.html?postid="+key+"' class= 'btn btn-info' name='read' id='"+key+"' style='float: right;'>Read</a></div></div></div>"+posts_div.innerHTML;
+    }
     }
   
   });
+});
 }
 function delete_post(key){
 
@@ -204,4 +276,4 @@ window.onload=function(){
 
 document.getElementById("Logout").addEventListener('click',logout);
 document.getElementById('submit').addEventListener('click', post1);
-document.getElementsByName('delete').addEventListener('click', delete_post(this.id));
+//document.getElementsByName('delete').addEventListener('click', delete_post(this.id));
