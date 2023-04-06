@@ -106,7 +106,7 @@ if (!user) {
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
                         if(data.fileUrl!="none"){
-                            document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"'></iframe>";
+                            document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"' allow-download='false'></iframe>";
                             document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
                         }
                     }else if(data.visible=="private"){
@@ -116,7 +116,7 @@ if (!user) {
                             document.getElementById("date-of-post").innerHTML = data.date;
                             document.getElementById("detail").innerHTML = data.detail;
                             if(data.fileUrl!="none"){
-                                document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"'></iframe>";
+                                document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"' allow-download='false'></iframe>";
                                 document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
                             }
                         }else{
@@ -135,7 +135,7 @@ if (!user) {
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
                         if(data.fileUrl!="none"){
-                            document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"'></iframe>";
+                            document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"' allow-download='false'></iframe>";
                             document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
                         }
                     }else if(data.visible=="private"){
