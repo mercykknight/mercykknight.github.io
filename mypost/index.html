@@ -72,14 +72,56 @@
 <script>
 function delete_post(key){
   const database = firebase.database();
-  database.ref('blogs/' + key).remove()
-  .then(() => {
-    alert("Post Deleted successfully");
-    location.reload();
+  database.ref("blogs/" +key + "/fileUrl").once("value")
+  .then(function(snapshot) {
+    var fileUrl = snapshot.val();
+    if(fileUrl){
+      var storage = firebase.storage();
+      var fileRef = storage.refFromURL(fileUrl);
+      fileRef.delete().then(function() {
+        console.log("File deleted successfully");
+        database.ref('blogs/' + key).remove()
+        .then(() => {
+          alert("Post Deleted successfully");
+          location.reload();
+        })
+        .catch((error) => {
+          alert("Error deleting Post: ", error);
+        });
+      }).catch(function(error) {
+        console.error("Error deleting file:", error);
+        database.ref('blogs/' + key).remove()
+        .then(() => {
+          alert("Post Deleted successfully");
+          location.reload();
+        })
+        .catch((error) => {
+          alert("Error deleting Post: ", error);
+        });
+      });
+    }else{
+      database.ref('blogs/' + key).remove()
+      .then(() => {
+        alert("Post Deleted successfully");
+        location.reload();
+      })
+      .catch((error) => {
+        alert("Error deleting Post: ", error);
+      });
+    }
   })
-  .catch((error) => {
-    alert("Error deleting Post: ", error);
+  .catch(function(error) {
+    console.error(error);
+    database.ref('blogs/' + key).remove()
+    .then(() => {
+      alert("Post Deleted successfully");
+      location.reload();
+    })
+    .catch((error) => {
+      alert("Error deleting Post: ", error);
+    });
   });
+  
 
 }
 function changepp(key,p,np){

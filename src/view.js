@@ -96,7 +96,7 @@ if (!user) {
     function getPostByKey(key) {
         firebase.database().ref('blogs/' + key).once('value').then(function(snapshot){
             var data =  snapshot.val();
-            console.log(data);
+            //console.log(data);
             const auth = getAuth();
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -106,7 +106,7 @@ if (!user) {
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
                         if(data.fileUrl!="none"){
-                            document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"' allow-download='false'></iframe>";
+                            document.getElementById("file").innerHTML = "<iframe id='frame-box' src='"+data.fileUrl+"' alt='"+data.fileUrl+"' type='"+getmetadata(data.fileUrl)+"' allow-download='false'></iframe>";
                             document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
                         }
                     }else if(data.visible=="private"){
@@ -116,7 +116,7 @@ if (!user) {
                             document.getElementById("date-of-post").innerHTML = data.date;
                             document.getElementById("detail").innerHTML = data.detail;
                             if(data.fileUrl!="none"){
-                                document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"' allow-download='false'></iframe>";
+                                document.getElementById("file").innerHTML = "<iframe id='frame-box' src='"+data.fileUrl+"' alt='"+data.fileUrl+"' type='"+getmetadata(data.fileUrl)+"' allow-download='false'></iframe>";
                                 document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
                             }
                         }else{
@@ -135,7 +135,7 @@ if (!user) {
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
                         if(data.fileUrl!="none"){
-                            document.getElementById("file").innerHTML = "<iframe src='"+data.fileUrl+"' alt='"+data.fileUrl+"' allow-download='false'></iframe>";
+                            document.getElementById("file").innerHTML = "<iframe id='frame-box' src='"+data.fileUrl+"' alt='"+data.fileUrl+"' type='"+getmetadata(data.fileUrl)+"' allow-download='false'></iframe>";
                             document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
                         }
                     }else if(data.visible=="private"){
@@ -156,3 +156,16 @@ if (!user) {
     // Get the random number from the URL
     const key = urlParams.get('postid');
     getPostByKey(key);
+
+function getmetadata(fileUrl){
+    var storage = firebase.storage();
+    var fileRef = storage.refFromURL(fileUrl);
+    fileRef.getMetadata().then(function(metadata) {
+        // Access the contentType property to get the file type
+        console.log('File type:', metadata['contentType']);
+        const filetype = document.getElementById('frame-box');
+        filetype.type = metadata['contentType'];
+      }).catch(function(error) {
+        console.log('Error getting file metadata:', error);
+      });
+}
