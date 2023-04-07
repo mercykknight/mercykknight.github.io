@@ -49,7 +49,7 @@ if (!user) {
       const username = Object.keys(userData)[0];
       
       const { first_name, last_name ,profession,userId,email} = userData[username];
-      console.log('Username:', username);
+      //console.log('Username:', username);
       // console.log('Username:', first_name);
       document.getElementById("user").innerHTML = username;
       document.getElementById("username").innerHTML = username;
