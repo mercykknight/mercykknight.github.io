@@ -34,9 +34,7 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-  }
   
-//  function userdetails(){
     //finding data of user
     const database = firebase.database();
 
@@ -61,7 +59,7 @@ if (!user) {
   .catch((error) => {
     console.error(error);
   });
-//}
+}
 
 });
 
@@ -268,7 +266,8 @@ function getposts(){
 });
 }
 function delete_post(key){
-
+  console.log("hello")
+  console.log(key);
   firebase.database().ref('blogs'+key).remove();
   getposts();
 
