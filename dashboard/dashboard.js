@@ -91,73 +91,73 @@ function logout(){
 
 
 
-//Function for posting A POst
-function post1(){
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-  if (user) {
-    var title = document.getElementById("title").value;
-    var detail = document.getElementById("detail").value;
-    var file = document.getElementById("file").files[0];
-    var themename = rightnow();
-    var author = user.email;
-    var visible = document.getElementById("visible").value;
+// //Function for posting A POst
+// function post1(){
+//   const auth = getAuth();
+//   onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     var title = document.getElementById("title").value;
+//     var detail = document.getElementById("detail").value;
+//     var file = document.getElementById("file").files[0];
+//     var themename = rightnow();
+//     var author = user.email;
+//     var visible = document.getElementById("visible").value;
 
-    if(file){
-      var storageRef = firebase.storage().ref('files/'+themename);
-      var uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', function(snapshot) {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
-        // console.log("byte trasfered"+snapshot.bytesTransferred);
-        // console.log("byte total"+snapshot.totalBytes);
-        // console.log("progress"+progress);
-        var element = document.getElementById("myprogressBar");
-        element.style.width = progress + '%';
-      }, function(error) {
-        console.log(error.message);
-      }, function() {
-        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-          firebase.database().ref('blogs').push().set({
-            title: title,
-            author: author,
-            visible: visible,
-            date: rightnow(),
-            detail: detail,
-            fileUrl: downloadURL
-          }, function(error) {
-            if(error) {
-              console.log("Error while uploading" ,error);
-            } else {
-              console.log("Post uploaded successfully");
-              alert("Post successfully uploaded");
-              document.getElementById('post-form').reset();
-              location.reload();
-            }
-          })
-        })
-      });
-    } else {
-      firebase.database().ref('blogs').push().set({
-        title: title,
-        author: author,
-        visible: visible,
-        date: rightnow(),
-        detail: detail,
-        fileUrl: "none"
-      }, function(error) {
-        if(error) {
-          console.log("Error while uploading" ,error);
-        } else {
-          alert("Post successfully uploaded");
-          document.getElementById('post-form').reset();
-          location.reload();
-        }
-      });
-    }
+//     if(file){
+//       var storageRef = firebase.storage().ref('files/'+themename);
+//       var uploadTask = storageRef.put(file);
+//       uploadTask.on('state_changed', function(snapshot) {
+//         var progress = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
+//         // console.log("byte trasfered"+snapshot.bytesTransferred);
+//         // console.log("byte total"+snapshot.totalBytes);
+//         // console.log("progress"+progress);
+//         var element = document.getElementById("myprogressBar");
+//         element.style.width = progress + '%';
+//       }, function(error) {
+//         console.log(error.message);
+//       }, function() {
+//         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+//           firebase.database().ref('blogs').push().set({
+//             title: title,
+//             author: author,
+//             visible: visible,
+//             date: rightnow(),
+//             detail: detail,
+//             fileUrl: downloadURL
+//           }, function(error) {
+//             if(error) {
+//               console.log("Error while uploading" ,error);
+//             } else {
+//               console.log("Post uploaded successfully");
+//               alert("Post successfully uploaded");
+//               document.getElementById('post-form').reset();
+//               location.reload();
+//             }
+//           })
+//         })
+//       });
+//     } else {
+//       firebase.database().ref('blogs').push().set({
+//         title: title,
+//         author: author,
+//         visible: visible,
+//         date: rightnow(),
+//         detail: detail,
+//         fileUrl: "none"
+//       }, function(error) {
+//         if(error) {
+//           console.log("Error while uploading" ,error);
+//         } else {
+//           alert("Post successfully uploaded");
+//           document.getElementById('post-form').reset();
+//           location.reload();
+//         }
+//       });
+//     }
 
-  }
-  });
-}
+//   }
+//   });
+// }
 
 
 
@@ -278,5 +278,5 @@ window.onload=function(){
 }
 
 document.getElementById("Logout").addEventListener('click',logout);
-document.getElementById('submit').addEventListener('click', post1);
+// document.getElementById('submit').addEventListener('click', post1);
 //document.getElementsByName('delete').addEventListener('click', delete_post(this.id));

@@ -7,7 +7,6 @@
         <link rel="icon" href="static/img/logo.jpg" type="image/png">
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
         <style>
             .avatar{
               border-radius: 20px;
@@ -18,6 +17,7 @@
               text-decoration: none;
               color: aliceblue;
             }
+            
             /* .blog-box{
                 margin: 20%;
                 margin-top: 1%;
@@ -30,12 +30,12 @@
             /* Styles for desktop screens */
             @media screen and (min-width: 768px) {
               .blog-box {
-                margin: 20%;
+                margin: 0%;
                 margin-top: 0%;
                 margin-bottom: 0%;
                 background-color: gainsboro;
                 padding: 4%;
-                border-radius: 5%;
+                border-radius: 1px;
               }
             }
 
@@ -47,12 +47,13 @@
                 margin-bottom: 0%;
                 background-color: gainsboro;
                 padding: 4%;
-                border-radius: 1%;
+                border-radius: 1px;
+                overflow: auto;
               }
             }
 
             footer{
-                margin-bottom: 3%;
+                margin-bottom: 0px;
             }
             /* .date-of-post{
                 font-family:fantasy;
@@ -80,10 +81,12 @@
                 align-items: center;
                 font-size: 14px;
             }
+            
             iframe{
+                
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
+                height: 500px;
+                
             }
           </style>
 
@@ -93,17 +96,17 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="/">MercyKKnight</a>
+              <a class="navbar-brand" href="/dashboard">MercyKKnight</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Create new Post</a>
+                    <a class="nav-link" href="/newpost">Create new Post</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/mypost">
@@ -140,10 +143,12 @@
             <label for="comment"></label>
             <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
         </form> -->
-        <footer><br><hr><center>All Copyright goes to @Pratham Upadhyay.</center>
+        <footer><hr><center>All Copyright goes to @Pratham Upadhyay.</center>
             
         </footer>
-        </div>
+      </div>
+        
+        
         <script>
           function getmetadata(fileUrl){
           var storage = firebase.storage();

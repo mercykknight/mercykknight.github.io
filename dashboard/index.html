@@ -81,20 +81,23 @@
         line-height: 10px;
         color: black;
       }
+      .dash{
+        padding: 2%;
+      }
 
     </style>
   </head>
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">MercyKKnight</a>
+    <a class="navbar-brand" href="/dashboard">MercyKKnight</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/contact.html">Contact Us</a>
@@ -103,7 +106,7 @@
           <a class="nav-link" href="/about.html">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Create New Post</a>
+          <a class="nav-link" href="/newpost">Create New Post</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/mypost">
@@ -131,7 +134,7 @@
 
 
 <!-- BOdy start from here?///// -->
-<div class="post-form">
+<!-- <div class="post-form">
 
 <div class="form-group row">
   <form id="post-form">
@@ -139,8 +142,6 @@
   <label for="title">Title*:</label>
   <input class="form-control" type="text" id="title" name="title" placeholder="Title"><br>
 
-  <!-- <label for="description">Description:</label>
-  <input type="text" id="description" name="description" placeholder="A short description"><br> -->
 
   <label for="detail">Description*:</label>
   <textarea class="form-control" id="detail" name="detail" placeholder="Write Your Blog" rows="4"></textarea><br>
@@ -157,11 +158,13 @@
 </div>
 </form>
 <input class="btn btn-secondary" data-progress="0" type="submit" id="submit" name="POST" value="POST"></div>
-</div>
+</div> -->
+
+<div class="dash">
 <h2>&nbsp;&nbsp;Recent Posts: </h2><hr>
 <div class="row mt-4" id="posts">
 
 </div>
-
+</div>
 </body>
 </html>
