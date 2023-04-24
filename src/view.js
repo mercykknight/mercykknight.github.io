@@ -105,19 +105,34 @@ if (!user) {
                         document.getElementById("author").innerHTML = "by "+ data.author;   
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
-                        if(data.fileUrl!="none"){
-                            document.getElementById("file").innerHTML = "<iframe id='frame-box' src='"+data.fileUrl+"' alt='"+data.fileUrl+"' type='"+getmetadata(data.fileUrl)+"' allow-download='false'></iframe>";
-                            document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
+                        console.log(data.fileUrls.length);
+                        if(data.fileUrls && data.fileUrls.length > 0){
+                            //var fileContainer = document.getElementById("file");
+                            for (var i = 0; i < data.fileUrls.length; i++) {
+                            var fileurl = data.fileUrls[i];
+                            var fileType = getmetadata(fileurl);
+                            var oldfile = document.getElementById("file").innerHTML;
+                            var oldlink = document.getElementById("downloadfile").innerHTML;
+                            document.getElementById("file").innerHTML = oldfile+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                            document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                            }
                         }
                     }else if(data.visible=="private"){
                         if(data.author==user.email){
                             document.getElementById("title").innerHTML = data.title;
-                            document.getElementById("author").innerHTML = "by "+ data.author;
+                            document.getElementById("author").innerHTML = "by "+ data.author;   
                             document.getElementById("date-of-post").innerHTML = data.date;
                             document.getElementById("detail").innerHTML = data.detail;
-                            if(data.fileUrl!="none"){
-                                document.getElementById("file").innerHTML = "<iframe id='frame-box' src='"+data.fileUrl+"' alt='"+data.fileUrl+"' type='"+getmetadata(data.fileUrl)+"' allow-download='false'></iframe>";
-                                document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
+                            console.log(data.fileUrls.length);
+                            if(data.fileUrls && data.fileUrls.length > 0){
+                                //var fileContainer = document.getElementById("file");
+                                for (var i = 0; i < data.fileUrls.length; i++) {
+                                var fileurl = data.fileUrls[i];
+                                var fileType = getmetadata(fileurl);
+                                var old = document.getElementById("file").innerHTML;
+                                document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                                document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                                }
                             }
                         }else{
                             console.log("Blog is Private");
@@ -131,12 +146,19 @@ if (!user) {
                 else{
                     if(data.visible=="public"){
                         document.getElementById("title").innerHTML = data.title;
-                        document.getElementById("author").innerHTML = "by "+ data.author;
+                        document.getElementById("author").innerHTML = "by "+ data.author;   
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
-                        if(data.fileUrl!="none"){
-                            document.getElementById("file").innerHTML = "<iframe id='frame-box' src='"+data.fileUrl+"' alt='"+data.fileUrl+"' type='"+getmetadata(data.fileUrl)+"' allow-download='false'></iframe>";
-                            document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+data.fileUrl+"'>Click Here to download</a>";
+                        console.log(data.fileUrls.length);
+                        if(data.fileUrls && data.fileUrls.length > 0){
+                            //var fileContainer = document.getElementById("file");
+                            for (var i = 0; i < data.fileUrls.length; i++) {
+                            var fileurl = data.fileUrls[i];
+                            var fileType = getmetadata(fileurl);
+                            var old = document.getElementById("file").innerHTML;
+                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                            document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                            }
                         }
                     }else if(data.visible=="private"){
                         console.log("Blog is Private");
