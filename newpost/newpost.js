@@ -127,10 +127,11 @@ function post1(){
                   console.log(url);
                   urls.push(url);
                   // Do something with the URL, such as displaying it on the page
-                  console.log(uploadCount,files.length);
                   uploadCount++;
-                  if (uploadCount == files.length+1) {
-                    urls.shift();
+                  console.log(uploadCount,files.length);
+                  
+                  if (uploadCount == files.length) {
+                    //urls.shift();
                     saveBlogToDatabase(urls);
                   }
                 });
@@ -139,7 +140,7 @@ function post1(){
           });
         }
       } else {
-        saveBlogToDatabase(["none"]);
+        saveBlogToDatabase([]);
       }
     
       function saveBlogToDatabase(urls) {

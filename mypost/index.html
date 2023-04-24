@@ -74,14 +74,26 @@
 <script>
 function delete_post(key){
   const database = firebase.database();
-  database.ref("blogs/" +key + "/fileUrl").once("value")
+  database.ref("blogs/" +key + "/fileUrls").once("value")
   .then(function(snapshot) {
     var fileUrl = snapshot.val();
     if(fileUrl){
+      console.log(fileUrl[0]);
+      var url = fileUrl[0];
+      var folderName = url.split("%2F")[1];
+      console.log(folderName+'/');
       var storage = firebase.storage();
-      var fileRef = storage.refFromURL(fileUrl);
-      fileRef.delete().then(function() {
-        console.log("File deleted successfully");
+      var folderRef = storage.ref('files/'+folderName);
+      folderRef.listAll().then(function(res) {
+        res.items.forEach(function(itemRef) {
+          itemRef.delete().then(function() {
+            console.log("File deleted successfully");
+          }).catch(function(error) {
+            console.log(error);
+          });
+        });
+        folderRef.delete().then(function() {
+          console.log("Folder deleted successfully");
         database.ref('blogs/' + key).remove()
         .then(() => {
           alert("Post Deleted successfully");
@@ -101,7 +113,8 @@ function delete_post(key){
           alert("Error deleting Post: ", error);
         });
       });
-    }else{
+    });
+  }else{
       database.ref('blogs/' + key).remove()
       .then(() => {
         alert("Post Deleted successfully");
