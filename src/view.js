@@ -110,10 +110,10 @@ if (!user) {
                             //var fileContainer = document.getElementById("file");
                             for (var i = 0; i < data.fileUrls.length; i++) {
                             var fileurl = data.fileUrls[i];
-                            var fileType = getmetadata(fileurl);
-                            var oldfile = document.getElementById("file").innerHTML;
+                            //var fileType = getmetadata(fileurl);
+                            var old = document.getElementById("file").innerHTML;
                             //var oldlink = document.getElementById("downloadfile").innerHTML;
-                            document.getElementById("file").innerHTML = oldfile+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' data='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                            document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe>";
                             // document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
                             }
                         }
@@ -128,9 +128,9 @@ if (!user) {
                                 //var fileContainer = document.getElementById("file");
                                 for (var i = 0; i < data.fileUrls.length; i++) {
                                 var fileurl = data.fileUrls[i];
-                                var fileType = getmetadata(fileurl);
+                                //var fileType = getmetadata(fileurl);
                                 var old = document.getElementById("file").innerHTML;
-                                document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                                document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe>";
                                 }
                             }
                         }else{
@@ -153,9 +153,9 @@ if (!user) {
                             //var fileContainer = document.getElementById("file");
                             for (var i = 0; i < data.fileUrls.length; i++) {
                             var fileurl = data.fileUrls[i];
-                            var fileType = getmetadata(fileurl);
+                            //var fileType = getmetadata(fileurl);
                             var old = document.getElementById("file").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                            document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe>";
                             }
                         }
                     }else if(data.visible=="private"){
@@ -178,6 +178,7 @@ if (!user) {
     getPostByKey(key);
 
 function getmetadata(fileUrl){
+    const fileype = '';
     var storage = firebase.storage();
     var fileRef = storage.refFromURL(fileUrl);
     fileRef.getMetadata().then(function(metadata) {
@@ -185,9 +186,11 @@ function getmetadata(fileUrl){
         console.log('File type:', metadata['contentType']);
         const filetype = document.getElementById('frame-box');
         filetype.type = metadata['contentType'];
+        fileype = metadata['contentType'];
       }).catch(function(error) {
         console.log('Error getting file metadata:', error);
       });
+      console.log(fileype);
 }
 
 
