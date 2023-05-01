@@ -73,6 +73,7 @@
 
 <script>
 function delete_post(key){
+  if(confirm("Are you sure you want to Delete this post?")){
   const database = firebase.database();
   database.ref("blogs/" +key + "/fileUrls").once("value")
   .then(function(snapshot) {
@@ -136,9 +137,13 @@ function delete_post(key){
       alert("Error deleting Post: ", error);
     });
   });
-  
+  }else{
+    console.log("Delete cancel!!")
+  }
 
 }
+
+
 function changepp(key,p,np){
     const nodeRef = firebase.database().ref('blogs/'+key+'/'+p);
     nodeRef.set(np)
