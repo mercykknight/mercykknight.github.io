@@ -112,9 +112,9 @@ if (!user) {
                             var fileurl = data.fileUrls[i];
                             var fileType = getmetadata(fileurl);
                             var oldfile = document.getElementById("file").innerHTML;
-                            var oldlink = document.getElementById("downloadfile").innerHTML;
-                            document.getElementById("file").innerHTML = oldfile+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
-                            document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                            //var oldlink = document.getElementById("downloadfile").innerHTML;
+                            document.getElementById("file").innerHTML = oldfile+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' data='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
+                            // document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
                             }
                         }
                     }else if(data.visible=="private"){
@@ -130,8 +130,7 @@ if (!user) {
                                 var fileurl = data.fileUrls[i];
                                 var fileType = getmetadata(fileurl);
                                 var old = document.getElementById("file").innerHTML;
-                                document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
-                                document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                                document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
                                 }
                             }
                         }else{
@@ -156,8 +155,7 @@ if (!user) {
                             var fileurl = data.fileUrls[i];
                             var fileType = getmetadata(fileurl);
                             var old = document.getElementById("file").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
-                            document.getElementById("downloadfile").innerHTML = "Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                            document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"' allow-download='false'></iframe>";
                             }
                         }
                     }else if(data.visible=="private"){
@@ -191,3 +189,15 @@ function getmetadata(fileUrl){
         console.log('Error getting file metadata:', error);
       });
 }
+
+
+function logout(){
+    signOut(auth).then(() => {
+      location.replace("/login");
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+  }      
+
+document.getElementById("Logout").addEventListener('click',logout);
