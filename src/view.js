@@ -113,7 +113,7 @@ if (!user) {
                             //var fileType = getmetadata(fileurl);
                             var old = document.getElementById("file").innerHTML;
                             //var oldlink = document.getElementById("downloadfile").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe>";
+                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
                             // document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
                             }
                         }
@@ -130,7 +130,7 @@ if (!user) {
                                 var fileurl = data.fileUrls[i];
                                 //var fileType = getmetadata(fileurl);
                                 var old = document.getElementById("file").innerHTML;
-                                document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe>";
+                                document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
                                 }
                             }
                         }else{
@@ -155,7 +155,7 @@ if (!user) {
                             var fileurl = data.fileUrls[i];
                             //var fileType = getmetadata(fileurl);
                             var old = document.getElementById("file").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe>";
+                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
                             }
                         }
                     }else if(data.visible=="private"){

@@ -111,7 +111,7 @@ function post1(){
           var file = files[i];
           var storageRef = firebase.storage().ref('files/' + themename+'/'+file.name);
           var uploadTask = storageRef.put(file);
-    
+          console.log("File name->",i,file.name);
           uploadTask.on('state_changed', function(snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             var element = document.getElementById("myprogressBar");
@@ -124,11 +124,13 @@ function post1(){
             storageRef.listAll().then(function(result) {
               result.items.forEach(function(fileRef) {
                 fileRef.getDownloadURL().then(function(url) {
+                  if (!urls.includes(url)){
                   console.log(url);
                   urls.push(url);
-                  // Do something with the URL, such as displaying it on the page
                   uploadCount++;
                   console.log(uploadCount,files.length);
+                  }
+                  // Do something with the URL, such as displaying it on the page
                   
                   if (uploadCount == files.length) {
                     //urls.shift();

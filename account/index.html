@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a blogging website, use it for creating your blogs and share your ideas to the world">
+        <link rel="icon" href="../static/img/logo.jpg" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title> Profile | Welcome to mercykknight</title>
+    <script type="module" src="account.js"></script>
+    <style>
+      .avatar{
+        border-radius: 20px;
+        height: 30px;
+        width: 30px;
+      }
+      .profile-drop{
+        text-decoration: none;
+        color: aliceblue;
+      }
+      .profile-banner{
+        background-color: gainsboro;
+        align-content: center;
+        align-self: center;
+        width:max-content;
+        margin-block: 40px;
+        padding: 4%;
+        border-radius: 5%;
+      }
+    </style>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">MercyKKnight</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact.html">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about.html">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/newpost">Create New Post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/mypost">
+            My Post
+          </a>
+        </li>
+      </ul>
+      <li class="nav-item dropdown">
+        <a class="profile-drop" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img class="avatar" src="/img/team.jpg">&nbsp;&nbsp;<span id='user'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/profile">Profile</a></li>
+          <li><a class="dropdown-item" href="/account">Account</a></li>
+          <li><input class="dropdown-item" type="submit" id="Logout" name="Logout" value="Logout"></li>
+        </ul>
+      </li> 
+    </div>
+  </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- <div align="right">
+  <input class="btn btn-primary" type="submit" id="Logout" name="Logout" value="Logout">
+</div> -->
+
+<center>
+  <div class="profile-banner">
+  <h1> Profile..</h1>
+<br>
+  <h3>First Name: <span id='first_name' style="color: purple;"></span><h3>
+  <h3>Last Name: <span id='last_name' style="color: purple;"></span><h3>
+  <h3>Username : <span id='username' style="color: purple;"></span><h3>
+  <h3>Email: <span id='email' style="color: purple;"></span><h3>
+  <h3>Profession: <span id='profession' style="color: purple;"></span><h3>
+  <h3>Account Status: <span id='status' style="color: green;">Active</span><h3>
+<br>
+<a href="/account">Edit Info</a>
+  </div>
+</center>
+
+
+</body>
+</html>
