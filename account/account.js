@@ -1,8 +1,8 @@
-// Import the functions you need from the SDKs you need
 import "https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js";
+import "https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 //import { getAnalytics } from "firebase/analytics";
-import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
+import { getAuth, updateEmail, onAuthStateChanged, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
 import "https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -33,7 +33,7 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-    
+    console.log(user.displayName);
     
     //finding data of user
     const database = firebase.database();
@@ -52,11 +52,16 @@ if (!user) {
       //console.log('Username:', username);
       // console.log('Username:', first_name);
       document.getElementById("user").innerHTML = username;
-      document.getElementById("username").innerHTML = username;
-      document.getElementById("email").innerHTML = email;
-      document.getElementById("first_name").innerHTML = first_name;
-      document.getElementById("last_name").innerHTML = last_name;
-      document.getElementById("profession").innerHTML = profession;
+      document.getElementById("greet").innerHTML = first_name;
+      document.getElementById("username").value = username;
+      document.getElementById("email").value = email;
+      document.getElementById("first_name").value = first_name;
+      document.getElementById("last_name").value = last_name;
+      document.getElementById("profession").value = profession;
+      if(user.photoURL){
+        const img = document.getElementById('profile-image');
+        img.src = user.photoURL;
+      }
     } else {
       // User was not found using their email
       console.log('User not found in the database');
@@ -79,7 +84,80 @@ if (!user) {
 // Get a reference to the Firebase Realtime Database
 
 
-
+function update(){
+  const first_name = document.getElementById("first_name").value;
+  const last_name = document.getElementById("last_name").value;
+  const profession = document.getElementById("profession").value;
+  const email = document.getElementById("email").value;
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+  if (!user) {
+      // User is signed out, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      location.replace("/login");
+      // ...
+  } else {
+      // User is singned in
+       // User is singned in
+      console.log(user.displayName);
+      
+      var userRef = firebase.database().ref('users/' + user.displayName);
+      userRef.update({
+        first_name: first_name,
+        last_name: last_name,
+        profession: profession
+      }
+      , function(error) {
+        if (error) {
+          console.log("Error updating user data:", error);
+        } else {
+          console.log("User data updated successfully");
+        }
+      });
+      // if(1==1){
+      //   updateEmail(auth.currentUser, email).then(() => {
+      //     alert("Email & Userdata updated successfuly");
+      //   }).catch((error) => {
+      //     alert(error);
+      //   });
+      // }
+      var files = document.getElementById('fileInput').files;
+      if(files.length>0 && files[0]){
+        var file = files[0];
+        if (user.photoURL && file) {
+          var storageRef = firebase.storage().refFromURL(user.photoURL);
+          // Delete the file
+          storageRef.delete().then(function() {
+            console.log("Old File deleted");
+            // File deleted successfully
+          }).catch(function(error) {
+            // Uh-oh, an error occurred!
+            console.log(error.message);
+          });
+        }
+        
+        var storageRef = firebase.storage().ref('dp/'+user.displayName+'_'+file.name);
+        storageRef.put(file).then(function(snapshot) {
+          console.log('Uploaded a DP or file!');
+          storageRef.getDownloadURL().then(function(url) {
+            // Save the download URL to the Firebase Realtime Database
+            console.log(url);
+            updateProfile(auth.currentUser, {
+              photoURL: url
+            }).then(() => {
+              console.log("Dp uploading successful");
+              alert("Changes Saved!");
+            }).catch((error) => {
+              console.log(error);
+            });
+          });
+      
+          });
+      }
+    }
+  })
+  
+}
 
 
 
@@ -92,5 +170,37 @@ function logout(){
   }).catch((error) => {
     // An error happened.
   });
-}           
+}
+
+function deleteacc(){
+  //const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+      alert("After deleting account you cannot recover your data.")
+      if(confirm("Are you sure you want to Delete this Account?")){
+      console.log(user.email);
+      var databaseRef = firebase.database().ref('users/'+user.displayName);
+      databaseRef.remove()
+        .then(function() {
+          console.log("Entry deleted successfully.");
+        })
+        .catch(function(error) {
+          console.log("Error deleting entry:", error);
+        });
+
+      user.delete().then(function() {
+        alert("Account deleted Successfully");
+      }).catch(function(error) {
+        console.log(error.code);
+        if(error.code=='auth/requires-recent-login'){
+          alert("Logout and login again to Delete your account");
+        }
+      });
+    }
+  }
+})
+}
+
 document.getElementById("Logout").addEventListener('click',logout);
+document.getElementById("update").addEventListener('click',update);
+document.getElementById("delete-user").addEventListener('click',deleteacc);
