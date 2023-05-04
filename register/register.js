@@ -46,9 +46,9 @@ function register(){
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const profession = document.getElementById("profession").value;
-    const username = document.getElementById("username").value;
-    username.replace(/\s+/g, "");
-    username.toLowerCase();
+    const username = document.getElementById("username").value.replace(/\s+/g, "").toLowerCase();
+    
+    alert(username);
     const first_name = document.getElementById("first_name").value;
     const last_name = document.getElementById("last_name").value;
     const auth = getAuth();

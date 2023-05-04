@@ -35,6 +35,9 @@
         border: 3px solid;
         border-radius: 10px;
       }
+      .form-control{
+        width:min-content;
+      }
     </style>
   </head>
   <body>
@@ -81,10 +84,14 @@
 <!-- <div align="right">
   <input class="btn btn-primary" type="submit" id="Logout" name="Logout" value="Logout">
 </div> -->
-
 <center>
   <div class="profile-banner">
-  <h1> Profile</h1>
+    <h1> Profile</h1><br>
+    <form action="https://mercykknight.github.io/user.html" method="get" style="display: flex; justify-content: center;">
+      <input type="text" class="form-control" id="search-query" placeholder="Enter Username To search" width="300px" aria-label="Username" aria-describedby="basic-addon1">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  
 <br>
 <div class="dp-box">
   <img class="dp" id="profile-image" src="/img/avatar.jpg"><br></div>
@@ -100,6 +107,18 @@
   </div>
 </center>
 
+<script>
+  const form = document.querySelector('form');
+  const input = document.getElementById('search-query');
 
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      const url = '/user.html?user='+searchQuery;
+      window.location.href = url;
+    }
+  });
+</script>
 </body>
 </html>
