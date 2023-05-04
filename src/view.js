@@ -131,10 +131,17 @@ if (!user) {
                     }else if(data.visible=="private"){
                         if(data.author==user.email){
                             document.getElementById("title").innerHTML = data.title;
-                            document.getElementById("author").innerHTML = "by "+ data.author;   
+                            document.getElementById("author").innerHTML = data.author;   
                             document.getElementById("author-profile").setAttribute("href", "/user.html?user=" + data.author);
                             document.getElementById("date-of-post").innerHTML = data.date;
                             document.getElementById("detail").innerHTML = data.detail;
+                            firebase.database().ref('users/' + data.author).once('value').then(function(snapshot){
+                              var data =  snapshot.val();
+                              if(data.photoURL){
+                                    document.getElementById("author-image").src = data.photoURL;
+                                  }
+      
+                              });
                             console.log(data.fileUrls.length);
                             if(data.fileUrls && data.fileUrls.length > 0){
                                 //var fileContainer = document.getElementById("file");
@@ -157,9 +164,17 @@ if (!user) {
                 else{
                     if(data.visible=="public"){
                         document.getElementById("title").innerHTML = data.title;
-                        document.getElementById("author").innerHTML = "by "+ data.author;   
+                        document.getElementById("author").innerHTML = data.author;
+                        document.getElementById("author-profile").setAttribute("href", "/user.html?user=" + data.author);
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
+                        firebase.database().ref('users/' + data.author).once('value').then(function(snapshot){
+                          var data =  snapshot.val();
+                          if(data.photoURL){
+                                document.getElementById("author-image").src = data.photoURL;
+                              }
+  
+                          });
                         console.log(data.fileUrls.length);
                         if(data.fileUrls && data.fileUrls.length > 0){
                             //var fileContainer = document.getElementById("file");

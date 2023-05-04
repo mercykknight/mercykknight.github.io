@@ -259,9 +259,9 @@ function getposts(){
       if(value.visible=='public'||value.author==user.displayName){
       posts_div.innerHTML="<div class='col-sm-4 mt-2 mb-1'>"+
       "<div class='card' style='padding:3%;'<h6><i>"+value.date+"</i></h6>"+
-      "<h1><b><u>"+value.title+"</u></b></h1>"+
+      "<h1><b><u><a href= '/view.html?postid="+key+"' style='text-decoration: none;color: inherit'>"+value.title+"</a></u></b></h1>"+
       "<div class='card-body'><p class='card-text'>"+value.detail.slice(0,200)+"....</p>"+
-      "<br>by: "+value.author+"<a href= '/view.html?postid="+key+"' class= 'btn btn-info' name='read' id='"+key+"' style='float: right;'>Read</a></div></div></div>"+posts_div.innerHTML;
+      "<br>by: <a href='/user.html?user="+value.author+"'>@"+value.author+"</a><a href= '/view.html?postid="+key+"' class= 'btn btn-info' name='read' id='"+key+"' style='float: right;'>Read</a></div></div></div>"+posts_div.innerHTML;
     }
     }
   
