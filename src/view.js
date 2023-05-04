@@ -124,12 +124,18 @@ if (!user) {
                             var fileType = getcontenttype(fileurl);
                             var old = document.getElementById("file").innerHTML;
                             //var oldlink = document.getElementById("downloadfile").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false' type='"+fileType+"'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
-                            // document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
+                            if(fileType.includes('image')){
+                              document.getElementById("file").innerHTML = old+"<img id='frame-img' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"'><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                            }else{
+                                document.getElementById("file").innerHTML = old+"<iframe id='frame-box' alt='"+fileurl+"' allow-download='false' sandbox='allow-scripts' type='"+fileType+"'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                                document.getElementById("frame-box").setAttribute('src', fileurl);
+                                //loadPdf(fileurl, 'pdf-canvas');
+
+                              }
                           }
                         }
                     }else if(data.visible=="private"){
-                        if(data.author==user.email){
+                        if(data.author==user.displayName){
                             document.getElementById("title").innerHTML = data.title;
                             document.getElementById("author").innerHTML = data.author;   
                             document.getElementById("author-profile").setAttribute("href", "/user.html?user=" + data.author);
@@ -147,9 +153,14 @@ if (!user) {
                                 //var fileContainer = document.getElementById("file");
                                 for (var i = 0; i < data.fileUrls.length; i++) {
                                 var fileurl = data.fileUrls[i];
-                                //var fileType = getmetadata(fileurl);
+                                var fileType = getcontenttype(fileurl);
                                 var old = document.getElementById("file").innerHTML;
-                                document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                                if(fileType.includes('image')){
+                                  document.getElementById("file").innerHTML = old+"<img id='frame-img' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"'><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                                }else{
+                                    document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false' type='"+fileType+"'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                                  }
+                                
                                 }
                             }
                         }else{
@@ -182,8 +193,12 @@ if (!user) {
                             var fileurl = data.fileUrls[i];
                             //var fileType = getmetadata(fileurl);
                             var old = document.getElementById("file").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
-                            }
+                            if(fileType.includes('image')){
+                              document.getElementById("file").innerHTML = old+"<img id='frame-img' src='"+fileurl+"' alt='"+fileurl+"' type='"+fileType+"'><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                            }else{
+                                document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false' type='"+fileType+"'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                              }
+                        }
                         }
                     }else if(data.visible=="private"){
                         console.log("Blog is Private");
@@ -221,7 +236,7 @@ function getmetadata(fileUrl){
       console.log(fileype);
 }
 function getcontenttype(fileUrl){
-      if(fileUrl.includes(".jpg") || fileUrl.includes(".jpge")){
+      if(fileUrl.includes(".jpg") || fileUrl.includes(".jpeg")){
         return "image/jpeg";
       }
       else if(fileUrl.includes(".png")){
