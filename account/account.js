@@ -34,7 +34,10 @@ if (!user) {
 } else {
     // User is singned in
     console.log(user.displayName);
-    
+    if(user.photoURL){
+      const img = document.getElementById('avatar');
+      img.src = user.photoURL;
+    }
     //finding data of user
     const database = firebase.database();
 
@@ -48,7 +51,7 @@ if (!user) {
       // Get the username from the user data
       const username = Object.keys(userData)[0];
       
-      const { first_name, last_name ,profession,userId,email} = userData[username];
+      const { first_name, last_name ,profession,userId,email,about} = userData[username];
       //console.log('Username:', username);
       // console.log('Username:', first_name);
       document.getElementById("user").innerHTML = username;
@@ -58,6 +61,7 @@ if (!user) {
       document.getElementById("first_name").value = first_name;
       document.getElementById("last_name").value = last_name;
       document.getElementById("profession").value = profession;
+      document.getElementById("about").value = about;
       if(user.photoURL){
         const img = document.getElementById('profile-image');
         img.src = user.photoURL;
@@ -89,6 +93,7 @@ function update(){
   const last_name = document.getElementById("last_name").value;
   const profession = document.getElementById("profession").value;
   const email = document.getElementById("email").value;
+  const about = document.getElementById("about").value;
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
   if (!user) {
@@ -100,27 +105,7 @@ function update(){
       // User is singned in
        // User is singned in
       console.log(user.displayName);
-      
-      var userRef = firebase.database().ref('users/' + user.displayName);
-      userRef.update({
-        first_name: first_name,
-        last_name: last_name,
-        profession: profession
-      }
-      , function(error) {
-        if (error) {
-          console.log("Error updating user data:", error);
-        } else {
-          console.log("User data updated successfully");
-        }
-      });
-      // if(1==1){
-      //   updateEmail(auth.currentUser, email).then(() => {
-      //     alert("Email & Userdata updated successfuly");
-      //   }).catch((error) => {
-      //     alert(error);
-      //   });
-      // }
+      //pprofile Photo update
       var files = document.getElementById('fileInput').files;
       if(files.length>0 && files[0]){
         var file = files[0];
@@ -154,6 +139,29 @@ function update(){
       
           });
       }
+
+      var userRef = firebase.database().ref('users/' + user.displayName);
+      userRef.update({
+        first_name: first_name,
+        last_name: last_name,
+        profession: profession,
+        about: about,
+        photoURL: user.photoURL
+      }
+      , function(error) {
+        if (error) {
+          console.log("Error updating user data:", error);
+        } else {
+          console.log("User data updated successfully");
+        }
+      });
+      // if(1==1){
+      //   updateEmail(auth.currentUser, email).then(() => {
+      //     alert("Email & Userdata updated successfuly");
+      //   }).catch((error) => {
+      //     alert(error);
+      //   });
+      // }
     }
   })
   

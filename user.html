@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <title> Profile | Welcome to mercykknight</title>
-    <script type="module" src="account.js"></script>
+    <script type="module" src="/src/user.js"></script>
     <style>
       .avatar{
         border-radius: 20px;
@@ -20,7 +20,6 @@
       .profile-drop{
         text-decoration: none;
         color: aliceblue;
-        margin-right: 5px;
       }
       .profile-banner{
         background-color: gainsboro;
@@ -31,29 +30,10 @@
         padding: 4%;
         border-radius: 5%;
       }
-      
       .dp{
         height: 100px;
         border: 3px solid;
-        border-radius: 100%;
-      }
-      input{
-        border-radius: 2px;
-        appearance: none;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        margin-right: 0px;
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        border-radius: .25rem;
-        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-      }
-      input[type="file"] {
-        width: auto;
-        overflow:hidden;
+        border-radius: 10px;
       }
     </style>
   </head>
@@ -86,7 +66,7 @@
       </ul>
       <li class="nav-item dropdown">
         <a class="profile-drop" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img class="avatar" id="avatar" src="/img/avatar.jpg">&nbsp;&nbsp;<span id='user'></span>
+          <img class="avatar" id="avatar" src="/img/team.jpg">&nbsp;&nbsp;<span id='user'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="/profile">Profile</a></li>
@@ -104,67 +84,22 @@
 
 <center>
   <div class="profile-banner">
-    <h1> Hello <span id="greet"></span>!</h1>
-  <div class="dp-box">
-    <img class="dp" id="profile-image" src="avatar.jpg"><br>
-    <input id = "fileInput" type="file" accept="image/*" onchange="previewImage(event)">
-  </div>
-  <div class="profile-detail">
+  <h1> Profile</h1>
 <br>
-  <h3>First Name: <input id='first_name' style="color: purple;" width="auto"><h3>
-  <h3>Last Name: <input id='last_name' style="color: purple;"><h3>
-  <h3>Username : <input id='username' style="color: purple;" disabled><h3>
-  <h3>Email_Add: <input type="email" id='email' style="color: purple;" disabled><h3>
-  <h3>Profession: <input id='profession' style="color: purple;"><h3>
-  <h3>About: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id='about' style="color: purple;"><h3>
-  <!-- <h3>Password: <input id='password' style="color: purple;"><h3> -->
+<div class="dp-box">
+  <img class="dp" id="profile-image" src="/img/avatar.jpg"><br></div>
+  <h3>First Name: <span id='first_name' style="color: purple;"></span><h3>
+  <h3>Last Name: <span id='last_name' style="color: purple;"></span><h3>
+  <h3>Username : <span id='username' style="color: purple;"></span><h3>
+  <h3>Email: <span id='email' style="color: purple;"></span><h3>
+  <h3>Profession: <span id='profession' style="color: purple;"></span><h3>
+  <h3>About: <span id='about' style="color: purple;"></span><h3>
   <h3>Account Status: <span id='status' style="color: green;">Active</span><h3>
 <br>
-<button class="btn btn-success" id="update">Save Details</button> <button class="btn btn-danger" id="delete-user">Delete Account</button>
+<a href="/account">Edit Info</a>
   </div>
-</div>
 </center>
-<script>
-  function previewImage(event) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-  reader.onload = function() {
-    const img = document.getElementById('profile-image');
-    img.src = reader.result;
-  }
-  reader.readAsDataURL(file);
-}
 
-function resizeImage(file, callback) {
-  var reader = new FileReader();
-  reader.onload = function() {
-    var img = new Image();
-    img.onload = function() {
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('2d');
-      var maxDim = 300;
-      var width = img.width;
-      var height = img.height;
-      if (width > height) {
-        if (width > maxDim) {
-          height *= maxDim / width;
-          width = maxDim;
-        }
-      } else {
-        if (height > maxDim) {
-          width *= maxDim / height;
-          height = maxDim;
-        }
-      }
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
-      canvas.toBlob(callback, 'image/jpeg', 0.8);
-    };
-    img.src = reader.result;
-  };
-  reader.readAsDataURL(file);
-}
-</script>
+
 </body>
 </html>

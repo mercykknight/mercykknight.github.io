@@ -39,12 +39,18 @@
                 background-color: gainsboro;
                 padding: 4%;
                 border-radius: 7px;
+                overflow: hidden;
               }
               iframe{
                 
                 width: 100%;
                 height: 100%;
-                
+                border: 0;
+            }
+            .file{
+              width: auto;
+              height: auto;
+              overflow: hidden;
             }
             }
 
@@ -57,13 +63,19 @@
                 background-color: gainsboro;
                 padding: 4%;
                 border-radius: 1px;
-                overflow: auto;
+                overflow: hidden;
               }
               iframe{
                 
-                width: auto;
-                height: auto;
-                
+                width: 100%;
+                height: 100%;
+                border: 0;
+                overflow: hidden;
+            }
+            .file{
+              width: auto;
+              height: auto;
+              overflow: hidden;
             }
             }
 
@@ -96,6 +108,11 @@
                 align-items: center;
                 font-size: 14px;
             }
+            /* .file{
+              width: auto;
+              height: auto;
+              overflow: hidden;
+            } */
             
             /* iframe{
                 
@@ -131,7 +148,7 @@
                 </ul>
                 <li class="nav-item dropdown">
                   <a class="profile-drop" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="avatar" src="/img/team.jpg">&nbsp;&nbsp;<span id='user'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img class="avatar" id="avatar" src="/img/team.jpg">&nbsp;&nbsp;<span id='user'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/profile">Profile</a></li>
@@ -146,11 +163,11 @@
         <b><span id="alert-info" role="alert" style="color: red;"></span></b>
         <b><h2 class="title" id ="title"></h2></b><br>
         <div class="info-blog">
-        <span id="author"></span><br><span id="date-of-post"></span></div>
+        By: <a id="author-profile" href=""><img class="avatar" id="author-image" src="/img/avatar.jpg"><span id="author"></span></a><br><span id="date-of-post"></span></div>
         <hr><br>
         <h6 class="detail" id="detail"></h6>
         <!-- <span class="downloadfile" id="downloadfile"></span><br> --><br>
-        <p class="file" id="file"></p>
+        <div class="file" id="file"></div>
         <!-- <form>
             Comment on this topic
             <label for="name">Name: </label>
@@ -162,8 +179,6 @@
             
         </footer>
       </div>
-        
-        
         <script>
           function getmetadata(fileUrl){
           var storage = firebase.storage();

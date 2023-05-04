@@ -30,6 +30,11 @@
         padding: 4%;
         border-radius: 5%;
       }
+      .dp{
+        height: 100px;
+        border: 3px solid;
+        border-radius: 10px;
+      }
     </style>
   </head>
   <body>
@@ -61,7 +66,7 @@
       </ul>
       <li class="nav-item dropdown">
         <a class="profile-drop" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img class="avatar" src="/img/team.jpg">&nbsp;&nbsp;<span id='user'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+          <img class="avatar" id="avatar" src="/img/team.jpg">&nbsp;&nbsp;<span id='user'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="/profile">Profile</a></li>
@@ -79,7 +84,7 @@
 
 <center>
   <div class="profile-banner">
-  <h1> Profile..</h1>
+  <h1> Profile</h1>
 <br>
 <div class="dp-box">
   <img class="dp" id="profile-image" src="avatar.jpg"><br></div>
@@ -88,6 +93,7 @@
   <h3>Username : <span id='username' style="color: purple;"></span><h3>
   <h3>Email: <span id='email' style="color: purple;"></span><h3>
   <h3>Profession: <span id='profession' style="color: purple;"></span><h3>
+  <h3>About: <span id='about' style="color: purple;"></span><h3>
   <h3>Account Status: <span id='status' style="color: green;">Active</span><h3>
 <br>
 <a href="/account">Edit Info</a>

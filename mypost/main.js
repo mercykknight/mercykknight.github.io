@@ -34,7 +34,10 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-  
+    if(user.photoURL){
+      const img = document.getElementById('avatar');
+      img.src = user.photoURL;
+    }
     //finding data of user
     const database = firebase.database();
 
@@ -124,13 +127,13 @@ function getposts(){
       
       }
     for(let[key,value] of Object.entries(data)){
-      if(value.author==user.email && value.visible=='private'){
+      if((value.author==user.email || value.author==user.displayName) && value.visible=='private'){
         posts_div.innerHTML="<div class='col-sm-4 mt-2 mb-1'>"+
         "<div class='card' style='padding:3%;'><div style='display:flex; justify-content: space-between;'><h6><i>"+value.date+"</i></h6><button onclick=ppp('"+key+"') class='btn btn-white' style='text-decoration:none;'><svg style='align:right;' xmlns='http://www.w3.org/2000/svg' width='20' height='20' id= 'lock"+key+"' fill='red' class='bi bi-lock-fill' viewBox='0 0 16 16'> <path d='M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z'/> </svg></button></div>"+
         "<a href= '/view.html?postid="+key+"' style='text-decoration:none;color: black;' id='"+key+"''><h1><b>"+value.title+"</b></h1></a>"+
         "<div class='card-body'><a href= '/view.html?postid="+key+"' style='text-decoration:none;color: black;' id='"+key+"''><p class='card-text'>"+value.detail.slice(0,200)+"....</p></a>"+
         "<br>by: "+value.author+"<button onclick=delete_post('"+key+"'); class= 'btn btn-danger' name='deleteButton' id='deleteButton' style='float: right;'>Delete</button></div></div></div>"+posts_div.innerHTML;
-      }else if(value.author==user.email && value.visible=='public'){
+      }else if((value.author==user.email || value.author==user.displayName) && value.visible=='public'){
         posts_div.innerHTML="<div class='col-sm-4 mt-2 mb-1'>"+
         "<div class='card' style='padding:3%;'><div style='display:flex; justify-content: space-between;'><h6><i>"+value.date+"</i></h6><button onclick=ppp('"+key+"') class='btn btn-white' style='text-decoration:none;'><svg style='align:right;' xmlns='http://www.w3.org/2000/svg' width='16' height='16' id= 'lock"+key+"' fill='green' class='bi bi-unlock-fill' viewBox='0 0 16 16'> <path d='M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z'/> </svg></button></div>"+
         "<a href= '/view.html?postid="+key+"' style='text-decoration:none;color: black;' id='"+key+"'><h1><b>"+value.title+"</b></h1></a>"+

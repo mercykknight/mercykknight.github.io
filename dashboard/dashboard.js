@@ -34,7 +34,10 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-  
+    if(user.photoURL){
+      const img = document.getElementById('avatar');
+      img.src = user.photoURL;
+    }
     //finding data of user
     const database = firebase.database();
 
@@ -253,7 +256,7 @@ function getposts(){
     //we have to pass our data to for loop to get one by one
     //we are passing the key of that post to delete it from database
     for(let[key,value] of Object.entries(data)){
-      if(value.visible=='public'||value.author==user.email){
+      if(value.visible=='public'||value.author==user.displayName){
       posts_div.innerHTML="<div class='col-sm-4 mt-2 mb-1'>"+
       "<div class='card' style='padding:3%;'<h6><i>"+value.date+"</i></h6>"+
       "<h1><b><u>"+value.title+"</u></b></h1>"+

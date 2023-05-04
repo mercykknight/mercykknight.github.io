@@ -34,7 +34,10 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-  
+    if(user.photoURL){
+      const img = document.getElementById('avatar');
+      img.src = user.photoURL;
+    }
     //finding data of user
     const database = firebase.database();
 
@@ -99,7 +102,7 @@ function post1(){
       var title = document.getElementById("title").value;
       var detail = document.getElementById("detail").value;
       var files = document.getElementById("file").files;
-      var author = user.email;
+      var author = user.displayName;
       var visible = document.getElementById("visible").value;
       var themename = rightnow();
     

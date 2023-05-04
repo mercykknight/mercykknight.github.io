@@ -47,6 +47,8 @@ function register(){
     const password = document.getElementById("password").value;
     const profession = document.getElementById("profession").value;
     const username = document.getElementById("username").value;
+    username.replace(/\s+/g, "");
+    username.toLowerCase();
     const first_name = document.getElementById("first_name").value;
     const last_name = document.getElementById("last_name").value;
     const auth = getAuth();
@@ -86,7 +88,9 @@ function register(){
           first_name: first_name,
           last_name: last_name,
           username: username,
-          profession: profession
+          profession: profession,
+          about: '',
+          photoURL: ''
           
         })
         // .then(() => {

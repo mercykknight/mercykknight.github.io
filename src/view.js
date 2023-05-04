@@ -35,7 +35,10 @@ if (!user) {
     // ...
 } else {
     // User is singned in
-  
+    if(user.photoURL){
+      const img = document.getElementById('avatar');
+      img.src = user.photoURL;
+    }
   
 //  function userdetails(){
     //finding data of user
@@ -100,27 +103,36 @@ if (!user) {
             const auth = getAuth();
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    if(data.visible=="public"){
+                  if(data.visible=="public"){
                         document.getElementById("title").innerHTML = data.title;
-                        document.getElementById("author").innerHTML = "by "+ data.author;   
+                        document.getElementById("author").innerHTML = data.author;
+                        document.getElementById("author-profile").setAttribute("href", "/user.html?user=" + data.author);
                         document.getElementById("date-of-post").innerHTML = data.date;
                         document.getElementById("detail").innerHTML = data.detail;
+                        firebase.database().ref('users/' + data.author).once('value').then(function(snapshot){
+                        var data =  snapshot.val();
+                        if(data.photoURL){
+                              document.getElementById("author-image").src = data.photoURL;
+                            }
+
+                        });
                         console.log(data.fileUrls.length);
                         if(data.fileUrls && data.fileUrls.length > 0){
                             //var fileContainer = document.getElementById("file");
                             for (var i = 0; i < data.fileUrls.length; i++) {
                             var fileurl = data.fileUrls[i];
-                            //var fileType = getmetadata(fileurl);
+                            var fileType = getcontenttype(fileurl);
                             var old = document.getElementById("file").innerHTML;
                             //var oldlink = document.getElementById("downloadfile").innerHTML;
-                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
+                            document.getElementById("file").innerHTML = old+"<iframe id='frame-box' src='"+fileurl+"' alt='"+fileurl+"' allow-download='false' type='"+fileType+"'></iframe><a href='"+fileurl+"'><i class='fa fa-download' style='font-size:30px;color:green'></i></a><br>";
                             // document.getElementById("downloadfile").innerHTML = oldlink+"Download from here...<a href='"+fileurl+"'>Click Here to download</a>";
-                            }
+                          }
                         }
                     }else if(data.visible=="private"){
                         if(data.author==user.email){
                             document.getElementById("title").innerHTML = data.title;
                             document.getElementById("author").innerHTML = "by "+ data.author;   
+                            document.getElementById("author-profile").setAttribute("href", "/user.html?user=" + data.author);
                             document.getElementById("date-of-post").innerHTML = data.date;
                             document.getElementById("detail").innerHTML = data.detail;
                             console.log(data.fileUrls.length);
@@ -187,10 +199,25 @@ function getmetadata(fileUrl){
         const filetype = document.getElementById('frame-box');
         filetype.type = metadata['contentType'];
         fileype = metadata['contentType'];
+        return filetype
       }).catch(function(error) {
         console.log('Error getting file metadata:', error);
       });
       console.log(fileype);
+}
+function getcontenttype(fileUrl){
+      if(fileUrl.includes(".jpg") || fileUrl.includes(".jpge")){
+        return "image/jpeg";
+      }
+      else if(fileUrl.includes(".png")){
+      return "image/png";
+      }
+      else if(fileUrl.includes(".pdf")){
+        return "application/pdf";
+        }
+      else{
+        return "";
+      }
 }
 
 

@@ -37,59 +37,38 @@ if (!user) {
       const img = document.getElementById('avatar');
       img.src = user.photoURL;
     }
-    
+    //Apply and show the blog with the key in url..
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Get the random number from the URL
+    const userprofile = urlParams.get('user');
+    //getPostByKey(key);
+    console.log(userprofile);
     //finding data of user
     const database = firebase.database();
 
   // Search for the user's data using their email
-  database.ref('users').orderByChild('email').equalTo(user.email).once('value')
-    .then((snapshot) => {
-    // Check if the user exists in the database
+  firebase.database().ref('users/' + userprofile).once('value').then(function(snapshot){
     if (snapshot.exists()) {
-      // User was found using their email
-      const userData = snapshot.val();
-      // Get the username from the user data
-      const username = Object.keys(userData)[0];
-      
-      const { first_name, last_name ,profession,userId,email,about} = userData[username];
-      //console.log('Username:', username);
-      // console.log('Username:', first_name);
-      document.getElementById("user").innerHTML = username;
-      document.getElementById("username").innerHTML = username;
-      document.getElementById("email").innerHTML = email;
-      document.getElementById("first_name").innerHTML = first_name;
-      document.getElementById("last_name").innerHTML = last_name;
-      document.getElementById("profession").innerHTML = profession;
-      document.getElementById("about").innerHTML = about;
-      if(user.photoURL){
-        document.getElementById("profile-image").src = user.photoURL;
+    var data =  snapshot.val();
+      console.log(data);
+      document.getElementById("user").innerHTML = userprofile;
+      document.getElementById("username").innerHTML = data.username;
+      document.getElementById("email").innerHTML = data.email;
+      document.getElementById("first_name").innerHTML = data.first_name;
+      document.getElementById("last_name").innerHTML = data.last_name;
+      document.getElementById("profession").innerHTML = data.profession;
+      document.getElementById("about").innerHTML = data.about;
+      if(data.photoURL){
+        document.getElementById("profile-image").src = data.photoURL;
       }
-    } else {
-      // User was not found using their email
-      console.log('User not found in the database');
+    }else{
+        console.log("User doesn't exists");
     }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
+});
     // ...
 }
 });
-
-
-// Get the email or username to search for
-
-// Get a reference to the Firebase Realtime Database
- // Replace with the email you want to search for
-
-// Get a reference to the Firebase Realtime Database
-
-
-
-
-
-
 
 
 function logout(){
@@ -101,3 +80,4 @@ function logout(){
   });
 }           
 document.getElementById("Logout").addEventListener('click',logout);
+
