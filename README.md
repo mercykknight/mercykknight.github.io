@@ -45,7 +45,9 @@
  - Open http://localhost:8080 (or the port specified by your web server) in your browser.
 
 # Contributing
-If you'd like to contribute to this project, please fork the repository on GitHub and create a pull request with your changes.
+If you'd like to contribute to this project, create an issue related to contribution.
+Fork the repository commit changes and send a pull request.
+Any kind of contributions will be welcome.
 
 # Project Credit:
-Credit goes to Pratham Upadhyay [@prathamu200](https://github.com/prathamu200)
+> Pratham Upadhyay [@prathamu200](https://github.com/prathamu200)
