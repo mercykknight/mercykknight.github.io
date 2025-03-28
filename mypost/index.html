@@ -175,7 +175,7 @@ function ppp(key){
   }
   function edit_post(postId) {
   console.log("Editing post with ID:", postId);
-  localStorage.setItem("editPostId", postId);
+  sessionStorage.setItem("editPostId", postId);
   window.location.href = "/newpost";
 }
 </script>

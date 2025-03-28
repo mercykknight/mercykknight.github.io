@@ -84,7 +84,7 @@ function logout() {
 }
 
 window.onload = function () {
-  const editPostId = localStorage.getItem("editPostId");
+  const editPostId = sessionStorage.getItem("editPostId");
   if (editPostId) {
     loadPostDetails(editPostId); // Load existing post details
   }
@@ -117,7 +117,7 @@ function post1() {
       var visible = document.getElementById("visible").value;
       var themename = rightnow();
 
-      const editPostId = localStorage.getItem("editPostId");
+      const editPostId = sessionStorage.getItem("editPostId");
       if (editPostId) {
         // Update existing post
         firebase
@@ -132,7 +132,7 @@ function post1() {
           })
           .then(() => {
             alert("Post updated successfully!");
-            localStorage.removeItem("editPostId"); // Clear storage
+            sessionStorage.removeItem("editPostId"); // Clear storage
             window.location.href = "/"; // Redirect to home or posts page
           });
         return;
