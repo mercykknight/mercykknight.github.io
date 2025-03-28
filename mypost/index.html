@@ -12,6 +12,23 @@
     <title> My Post | mercykknight</title>
     <script type="module" src="main.js"></script>
     <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f2f2f2;   /* Light gray background */
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+        color: #007bff;        /* A modern blue for links */
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
       .main-body{
         padding: 4%;
       }
@@ -24,6 +41,37 @@
         text-decoration: none;
         color: aliceblue;
       }
+      .card {
+        background: #ffffff;                /* White background */
+        border-radius: 10px;                 /* Rounded corners */
+        padding: 20px;                       /* More generous padding */
+        margin-bottom: 20px;                 /* Space below each card */
+        transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
+        position: relative;                  /* For positioning inner elements if needed */
+      }
+      .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+      }
+            #posts {
+        margin-top: 20px;
+      }
+
+      .col-sm-4 {
+        padding: 10px;        /* Add some padding around each column */
+      }
+
+      .dash {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+      }
+
+
+
+
     </style>
   </head>
   <body>

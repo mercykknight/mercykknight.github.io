@@ -145,10 +145,11 @@ function getposts() {
             "<h1><b><u><a href= '/view.html?postid=" +
             key +
             "' style='text-decoration: none;color: inherit'>" +
-            value.title +
+            value.title.slice(0, 34) +
+            "..." +
             "</a></u></b></h1>" +
             "<div class='card-body'><p class='card-text'>" +
-            value.detail.slice(0, 200).replace(/<\/?[^>]+(>|$)/g, " ") +
+            value.detail.replace(/<\/?[^>]+(>|$)/g, " ").slice(0, 200) +
             "....</p>" +
             "<br>by: <a href='/user.html?user=" +
             value.author +

@@ -12,6 +12,21 @@
     <title> Dashboard! | mercykknight</title>
     <script type="module" src="dashboard.js"></script>
     <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #eaeaea;
+        color: #333;
+      }
+
+      a {
+        color: #007bff; /* A modern blue for links */
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
       .avatar{
         border-radius: 20px;
         height: 30px;
@@ -82,8 +97,26 @@
         color: black;
       }
       .dash{
-        padding: 2%;
+        background: #f9f9f9;  /* Light gray background for contrast */
+        padding: 20px;
       }
+      .card {
+        background: #ffffff;      /* White background */
+        border-radius: 10px;      /* Rounded corners */
+        padding: 20px;            /* More padding for a spacious look */
+        transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+      }
+      .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+        transform: translateY(-5px); /* Slight lift effect */
+      }
+
+      .col-sm-4 {
+        margin-bottom: 20px; /* Space out the blog boxes vertically */
+      }
+
+
+
 
     </style>
   </head>
@@ -161,7 +194,7 @@
 </div> -->
 
 <div class="dash">
-<h2>&nbsp;&nbsp;Recent Posts: </h2><hr>
+<h2>&nbsp;&nbsp;Dashboard: </h2><hr>
 <div class="row mt-4" id="posts">
 
 </div>
