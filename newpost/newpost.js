@@ -83,6 +83,27 @@ function logout() {
     });
 }
 
+window.onload = function () {
+  const editPostId = localStorage.getItem("editPostId");
+  if (editPostId) {
+    loadPostDetails(editPostId); // Load existing post details
+  }
+};
+
+function loadPostDetails(postId) {
+  firebase
+    .database()
+    .ref("blogs/" + postId)
+    .once("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const post = snapshot.val();
+        document.getElementById("title").value = post.title;
+        document.getElementById("editor").innerHTML = post.detail;
+        document.getElementById("visible").value = post.visible;
+      }
+    });
+}
+
 //Function for posting A POst
 function post1() {
   const auth = getAuth();
@@ -95,6 +116,27 @@ function post1() {
       var author = user.displayName;
       var visible = document.getElementById("visible").value;
       var themename = rightnow();
+
+      const editPostId = localStorage.getItem("editPostId");
+      if (editPostId) {
+        // Update existing post
+        firebase
+          .database()
+          .ref("blogs/" + editPostId)
+          .update({
+            title: title,
+            detail: detail,
+            visible: visible,
+            author: user.displayName,
+            date: rightnow(),
+          })
+          .then(() => {
+            alert("Post updated successfully!");
+            localStorage.removeItem("editPostId"); // Clear storage
+            window.location.href = "/"; // Redirect to home or posts page
+          });
+        return;
+      }
 
       if (files.length > 0) {
         var uploadCount = 0;

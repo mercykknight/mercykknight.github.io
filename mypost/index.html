@@ -173,6 +173,11 @@ function ppp(key){
         changepp(key,'visible','private');
     }
   }
+  function edit_post(postId) {
+  console.log("Editing post with ID:", postId);
+  localStorage.setItem("editPostId", postId);
+  window.location.href = "/newpost";
+}
 </script>
 <!-- BOdy start from here?///// -->
 <div class="main-body">
