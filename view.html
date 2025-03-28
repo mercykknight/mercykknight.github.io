@@ -124,6 +124,9 @@
                 height: 100%;
                 
             } */
+            .card-text {
+              white-space: pre-wrap; /* Preserve newlines, spaces, and tabs */
+            }
           
           </style>
 
@@ -166,11 +169,11 @@
           </nav>
         <div class="blog-box">
         <b><span id="alert-info" role="alert" style="color: red;"></span></b>
-        <b><h2 class="title" id ="title"></h2></b><br>
+        <b><h1 class="title" id ="title"></h1></b><br>
         <div class="info-blog">
         By: <a id="author-profile" href=""><img class="avatar" id="author-image" src="/img/avatar.jpg">@<span id="author"></span></a><br><span id="date-of-post"></span></div>
         <hr><br>
-        <h6 class="detail" id="detail"></h6>
+        <h6 class="detail card-text" id="detail"></h6>
         <!-- <span class="downloadfile" id="downloadfile"></span><br> --><br>
         <div class="file" id="file"></div>
         <div class="file1" id="pdf-canvas"></div>

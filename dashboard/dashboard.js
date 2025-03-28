@@ -148,7 +148,7 @@ function getposts() {
             value.title +
             "</a></u></b></h1>" +
             "<div class='card-body'><p class='card-text'>" +
-            value.detail.slice(0, 200) +
+            value.detail.slice(0, 200).replace(/<\/?[^>]+(>|$)/g, " ") +
             "....</p>" +
             "<br>by: <a href='/user.html?user=" +
             value.author +
