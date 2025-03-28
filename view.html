@@ -9,6 +9,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
+            body {
+                background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
             .avatar{
               border-radius: 20px;
               height: 30px;
@@ -30,7 +35,7 @@
 
             /* Styles for desktop screens */
             @media screen and (min-width: 768px) {
-              .blog-box {
+              /* .blog-box {
                 margin: 0%;
                 margin-top: 0%;
                 margin-bottom: 0%;
@@ -40,7 +45,16 @@
                 padding: 4%;
                 border-radius: 7px;
                 overflow: hidden;
+              } */
+              .blog-box {
+                  background-color: #ffffff; /* from gainsboro */
+                  padding: 2rem;             /* adjust for more breathing room */
+                  border-radius: 10px;       /* smoother rounded corners */
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* subtle shadow */
+                  margin: 0 10%;             /* adjust horizontal margins */
+                  overflow: hidden;
               }
+
               iframe{
                 
                 width: 100%;
@@ -56,7 +70,7 @@
 
             /* Styles for mobile screens */
             @media screen and (max-width: 767px) {
-              .blog-box {
+              /* .blog-box {
                 margin: 0%;
                 margin-top: 0%;
                 margin-bottom: 0%;
@@ -64,7 +78,14 @@
                 padding: 4%;
                 border-radius: 1px;
                 overflow: hidden;
+              } */
+              .blog-box {
+                  background-color: #ffffff; /* lighter background */
+                  padding: 1.5rem;           /* slightly reduced padding */
+                  border-radius: 5px;        /* softer corners */
+                  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* subtle shadow for mobile */
               }
+
               iframe{
                 
                 width: 100%;
@@ -95,17 +116,34 @@
                 font-family:Verdana, Geneva, Tahoma, sans-serif;
                 float: left;
             }
-            .detail{
+            /* .detail{
                 font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 letter-spacing: 1px;
                 font-size: 16px;
                 word-spacing: 2.5px;
                 line-height: normal;
                 
+            } */
+            .detail {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: #333;
+                margin-bottom: 90px;
             }
-            .title{
+
+            /* .title{
                 font-family:Georgia, 'Times New Roman', Times, serif;
+            } */
+            .title {
+                font-family: 'Merriweather', Georgia, serif;
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                font-weight: 700; /* Increased boldness */
+                color: #2c3e50;   /* Change to a darker, attractive color */
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
             }
+
+
             .info-blog{
                 /* display:contents; */
                 justify-content: space-between;
@@ -170,8 +208,11 @@
         <div class="blog-box">
         <b><span id="alert-info" role="alert" style="color: red;"></span></b>
         <b><h1 class="title" id ="title"></h1></b><br>
-        <div class="info-blog">
-        By: <a id="author-profile" href=""><img class="avatar" id="author-image" src="/img/avatar.jpg">@<span id="author"></span></a><br><span id="date-of-post"></span></div>
+        <div class="info-blog d-flex justify-content-between align-items-center">
+        <div class="info-blog d-flex align-items-center gap-2">By: <a id="author-profile" href="">
+          <img class="avatar me-2" id="author-image" src="/img/avatar.jpg">@<span id="author"></span>
+        </a></div>
+        <span id="date-of-post"></span></div>
         <hr><br>
         <h6 class="detail card-text" id="detail"></h6>
         <!-- <span class="downloadfile" id="downloadfile"></span><br> --><br>

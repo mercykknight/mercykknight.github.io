@@ -169,6 +169,8 @@
           <button type="button" onclick="formatText('italic')"><i>I</i></button>
           <button type="button" onclick="formatText('underline')"><u>U</u></button>
           <button type="button" onclick="formatText('strikeThrough')"><del>S</del></button>
+          <button type="button" onclick="addLink()">🔗 Link</button> <!-- New Link Button -->
+          <button type="button" onclick="addImage()">🖼️ Image</button> <!-- New Image Button -->
           <select class="custom-select" id="size" name="size" onchange="changeSize()">
             <option value="p">Normal</option>
             <option value="H2">Title</option>
@@ -202,15 +204,33 @@
 </div> -->
 
   <script>
+    function addImage() {
+      const imageUrl = prompt("Enter the URL of the image:");
+      if (imageUrl) {
+        // Insert the image with max width 80% and height auto
+        document.execCommand(
+          "insertHTML",
+          false,
+          `<img src="${imageUrl}" style="max-width: 80%; height: auto;" alt="Image">`
+        );
+      }
+    }
+    function addLink() {
+      const url = prompt("Enter the URL for the link:");
+      if (url) {
+        // Use the execCommand to insert a link
+        document.execCommand("insertHTML", false, `<a href="${url}" target="_blank">${url}</a>`);
+      }
+    }
     function formatText(command, value = null) {
             document.execCommand(command, false, value);
             updatePreview();
         }
 
-        function updatePreview() {
-            document.getElementById("preview").innerHTML = document.getElementById("editor").innerHTML;
-        }
-        function changeSize() {
+    function updatePreview() {
+          document.getElementById("preview").innerHTML = document.getElementById("editor").innerHTML;
+      }
+    function changeSize() {
         let selectedSize = document.getElementById("size").value;
         document.execCommand("formatBlock", false, selectedSize);
     }
