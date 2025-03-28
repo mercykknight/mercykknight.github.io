@@ -171,6 +171,7 @@
           <button type="button" onclick="formatText('strikeThrough')"><del>S</del></button>
           <button type="button" onclick="addLink()">🔗 Link</button> <!-- New Link Button -->
           <button type="button" onclick="addImage()">🖼️ Image</button> <!-- New Image Button -->
+          <button type="button" onclick="addVideo()">🎥 Video</button> <!-- New Video Button -->
           <select class="custom-select" id="size" name="size" onchange="changeSize()">
             <option value="p">Normal</option>
             <option value="H2">Title</option>
@@ -204,6 +205,33 @@
 </div> -->
 
   <script>
+    function addVideo() {
+      const videoUrl = prompt("Enter the URL of the video (YouTube or MP4):");
+      if (videoUrl) {
+        let embedCode = "";
+
+        // Check if the URL is a YouTube link
+        if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
+          // Extract the YouTube video ID
+          const videoId = videoUrl.split("v=")[1]?.split("&")[0] || videoUrl.split("/").pop();
+          embedCode = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>`;
+        } else if (videoUrl.endsWith(".mp4")) {
+          // Embed MP4 video
+          embedCode = `<video controls style="max-width: 80%; height: auto;">
+                        <source src="${videoUrl}" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>`;
+        } else {
+          alert("Invalid video URL. Please provide a valid YouTube or MP4 video link.");
+          return;
+        }
+
+        // Insert the video embed code into the editor
+        document.execCommand("insertHTML", false, embedCode);
+      }
+    }
     function addImage() {
       const imageUrl = prompt("Enter the URL of the image:");
       if (imageUrl) {
