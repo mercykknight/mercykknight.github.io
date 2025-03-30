@@ -165,6 +165,36 @@
             .card-text {
               white-space: pre-wrap; /* Preserve newlines, spaces, and tabs */
             }
+            code {
+                font-family: "Courier New", Courier, monospace;
+                background-color: #f6f8fa; /* Light gray background like GitHub */
+                color: #24292f; /* Dark text color for contrast */
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-size: 1rem;
+                display: inline-block;
+                word-wrap: break-word;
+            }
+
+            /* For code blocks (block-level code elements) */
+            pre code {
+                background-color: #282c34; /* Dark background for block code */
+                color: #e1e4e8; /* Light gray text for contrast */
+                padding: 16px;
+                border-radius: 6px;
+                font-size: 0.9rem;
+                overflow-x: auto;
+                white-space: pre-wrap; /* Wrap long lines */
+                word-break: break-word;
+                display: block;
+                margin: 16px 0;
+                border: 1px solid #ddd; /* Border to resemble GitHub's code blocks */
+            }
+
+            /* Make the code block visually easier to select/copy */
+            pre {
+                user-select: text;
+            }
           
           </style>
 
