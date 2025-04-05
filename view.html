@@ -4,6 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="This is a blogging website, use it for creating your blogs and share your ideas to the world">
+        
+        <!-- Meta tags for SEO & social media -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Placeholder Title">
+        <meta property="og:description" content="Placeholder Description">
+        <meta property="og:image" content="https://example.com/placeholder-image.jpg">
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Placeholder Title">
+        <meta name="twitter:description" content="Placeholder Description">
+        <meta name="twitter:image" content="https://example.com/placeholder-image.jpg">
+
         <link rel="icon" href="static/img/logo.jpg" type="image/png">
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -165,6 +177,36 @@
             .card-text {
               white-space: pre-wrap; /* Preserve newlines, spaces, and tabs */
             }
+            code {
+                font-family: "Courier New", Courier, monospace;
+                background-color: #f6f8fa; /* Light gray background like GitHub */
+                color: #24292f; /* Dark text color for contrast */
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-size: 1rem;
+                display: inline-block;
+                word-wrap: break-word;
+            }
+
+            /* For code blocks (block-level code elements) */
+            pre code {
+                background-color: #282c34; /* Dark background for block code */
+                color: #e1e4e8; /* Light gray text for contrast */
+                padding: 16px;
+                border-radius: 6px;
+                font-size: 0.9rem;
+                overflow-x: auto;
+                white-space: pre-wrap; /* Wrap long lines */
+                word-break: break-word;
+                display: block;
+                margin: 16px 0;
+                border: 1px solid #ddd; /* Border to resemble GitHub's code blocks */
+            }
+
+            /* Make the code block visually easier to select/copy */
+            pre {
+                user-select: text;
+            }
           
           </style>
 
@@ -215,7 +257,7 @@
         <div class="info-blog d-flex align-items-center gap-2">By: <a id="author-profile" href="">
           <img class="avatar me-2" id="author-image" src="/img/avatar.jpg">@<span id="author"></span>
         </a></div>
-        <span id="date-of-post"></span></div>
+        <span id="date-of-post"></span></div><button class="btn btn-outline-primary mt-2" id="shareButton">Share</button>
         <hr><br>
         <h6 class="detail card-text" id="detail"></h6>
         <!-- <span class="downloadfile" id="downloadfile"></span><br> --><br>
@@ -233,6 +275,29 @@
         </footer>
       </div>
         <script>
+          document.addEventListener('DOMContentLoaded', function() {
+          // Assuming title and image are set already in the page
+          const title = document.getElementById('title').textContent || "Default Title";
+          const authorImage = document.getElementById('author-image') ? document.getElementById('author-image').src : "https://example.com/default-image.jpg";
+          const description = document.getElementById('detail') ? document.getElementById('detail').textContent : "Default description of the blog post.";
+
+          // Update the meta tags dynamically
+          const metaOgTitle = document.querySelector('meta[property="og:title"]');
+          const metaOgDescription = document.querySelector('meta[property="og:description"]');
+          const metaOgImage = document.querySelector('meta[property="og:image"]');
+
+          const metaTwitterTitle = document.querySelector('meta[name="twitter:title"]');
+          const metaTwitterDescription = document.querySelector('meta[name="twitter:description"]');
+          const metaTwitterImage = document.querySelector('meta[name="twitter:image"]');
+
+          if (metaOgTitle) metaOgTitle.setAttribute('content', title);
+          if (metaOgDescription) metaOgDescription.setAttribute('content', description);
+          if (metaOgImage) metaOgImage.setAttribute('content', authorImage);
+
+          if (metaTwitterTitle) metaTwitterTitle.setAttribute('content', title);
+          if (metaTwitterDescription) metaTwitterDescription.setAttribute('content', description);
+          if (metaTwitterImage) metaTwitterImage.setAttribute('content', authorImage);
+        });
           function getmetadata(fileUrl){
           var storage = firebase.storage();
           var fileRef = storage.refFromURL(fileUrl);
@@ -255,6 +320,28 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
 
         <script>
+          document.getElementById('shareButton').addEventListener('click', function() {
+          const url = window.location.href;
+          
+          // Create a temporary input element to copy the URL
+          const tempInput = document.createElement('input');
+          tempInput.value = url;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          tempInput.setSelectionRange(0, 99999); // For mobile devices
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+          
+          // Show a message indicating the URL was copied
+          const alertInfo = document.getElementById('alert-info');
+          alertInfo.textContent = 'URL copied to clipboard!';
+          alertInfo.style.color = 'green';
+          
+          // Optionally, hide the message after a few seconds
+          setTimeout(() => {
+            alertInfo.textContent = '';
+          }, 1000);
+        });
           function loadPdf(url, elementId) {
           // Load the PDF document
           pdfjsLib.getDocument(url).promise.then(function(pdf) {

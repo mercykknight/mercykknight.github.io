@@ -88,11 +88,106 @@
       margin-bottom: 20px;
     }
     .toolbar {
-      margin-bottom: 10px;
-    }
-    .toolbar button {
-      margin-right: 5px;
-    }
+    margin-bottom: 10px;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0; /* Stick to the top of the parent container */
+    background-color: #ffffff; /* White background */
+    z-index: 100; /* Ensure the toolbar stays on top */
+    padding: 10px 0; /* Add padding for spacing */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 1px; /* Rounded corners for the toolbar */
+    gap: 2px;
+  }
+
+  /* Button Styles for Toolbar */
+  .toolbar button {
+    background: linear-gradient(135deg, #1689d1, #6a98fe); /* Gradient background */
+    color: white; /* Text color */
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px; /* Rounded button corners */
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transform and shadow transition */
+  }
+
+  /* Button Hover and Active Effects */
+  .toolbar button:hover {
+    background: linear-gradient(135deg, #6a98fe, #6ac5fe); /* Change gradient on hover */
+    transform: translateY(-3px); /* Slight upward movement */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Darker shadow on hover */
+  }
+
+  .toolbar button:active {
+    transform: translateY(1px); /* Button depression effect when clicked */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow when clicked */
+  }
+
+  /* Custom styles for icons in toolbar buttons */
+  .toolbar button i,
+  .toolbar button b,
+  .toolbar button u,
+  .toolbar button del {
+    font-size: 18px; /* Increase icon size */
+    margin-right: 5px;
+  }
+
+  /* Dropdown (Select) Button Styles */
+  select {
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 20px; /* Rounded corners */
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+    transition: background-color 0.3s ease;
+  }
+
+  select:hover {
+    background-color: #e0e0e0; /* Slight background change on hover */
+  }
+
+  /* Add smooth transition to buttons */
+  .toolbar button,
+  select {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+
+    /* GitHub-like Code Block Style */
+  code {
+      font-family: "Courier New", Courier, monospace;
+      background-color: #f6f8fa; /* Light gray background like GitHub */
+      color: #24292f; /* Dark text color for contrast */
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 1rem;
+      display: inline-block;
+      word-wrap: break-word;
+  }
+
+  /* For code blocks (block-level code elements) */
+  pre code {
+      background-color: #282c34; /* Dark background for block code */
+      color: #e1e4e8; /* Light gray text for contrast */
+      padding: 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      white-space: pre-wrap; /* Wrap long lines */
+      word-break: break-word;
+      display: block;
+      margin: 16px 0;
+      border: 1px solid #ddd; /* Border to resemble GitHub's code blocks */
+  }
+
+  /* Make the code block visually easier to select/copy */
+  pre {
+      user-select: text;
+  }
+
   </style>
 </head>
 
@@ -169,6 +264,8 @@
           <button type="button" onclick="formatText('italic')"><i>I</i></button>
           <button type="button" onclick="formatText('underline')"><u>U</u></button>
           <button type="button" onclick="formatText('strikeThrough')"><del>S</del></button>
+          <button type="button" onclick="formatText('code')">💻 Code</button>
+          <button type="button" onclick="removeFormatting()">🚫 Style</button>
           <button type="button" onclick="addLink()">🔗 Link</button> <!-- New Link Button -->
           <button type="button" onclick="addImage()">🖼️ Image</button> <!-- New Image Button -->
           <button type="button" onclick="addVideo()">🎥 Video</button> <!-- New Video Button -->
@@ -205,6 +302,15 @@
 </div> -->
 
   <script>
+    function removeFormatting() {
+        // Remove all styles (bold, italic, underline, etc.) from the selected text or cursor position
+        document.execCommand('removeFormat', false, null);
+        // Remove all inline styles and HTML tags
+        const plainText = editorContent.replace(/(<([^>]+)>)/gi, "").replace(/<([a-z][a-z0-9]*)[^>]*>/gi, "<$1>"); // Removes all HTML tags
+        document.getElementById('editor').innerHTML = plainText; // Sets the plain text content back to the editor
+    }
+
+    
     function addVideo() {
       const videoUrl = prompt("Enter the URL of the video (YouTube or MP4):");
       if (videoUrl) {
@@ -250,10 +356,33 @@
         document.execCommand("insertHTML", false, `<a href="${url}" target="_blank">${url}</a>`);
       }
     }
+    // function formatText(command, value = null) {
+    //         document.execCommand(command, false, value);
+    //         updatePreview();
+    //     }
     function formatText(command, value = null) {
+        if (command === 'code') {
+            // Check if the user has selected text
+            const selectedText = window.getSelection().toString();
+            const selectedRange = window.getSelection().getRangeAt(0);
+            const parentElement = selectedRange.startContainer.parentNode;
+            console.log(selectedText);
+            if (parentElement.tagName === 'CODE' || (parentElement.tagName === 'PRE' && parentElement.firstChild.tagName === 'CODE')) {
+                // If it's wrapped in <code> or <pre><code>, remove the formatting by unwrapping it
+                document.execCommand('removeFormat', false, null);
+                } else {
+                // Wrap selected text in <pre><code> if it's not already in a code block
+                if (selectedText.toString()) {
+                    document.execCommand('insertHTML', false, '<pre><code>' + selectedText.toString() + '</code></pre>');
+                }
+            }
+        } else {
+            // For other commands like bold, italic, etc.
             document.execCommand(command, false, value);
-            updatePreview();
         }
+
+        updatePreview();
+    }
 
     function updatePreview() {
           document.getElementById("preview").innerHTML = document.getElementById("editor").innerHTML;
@@ -309,6 +438,22 @@
       }
       //fileNames.innerHTML = names;
     });
+
+    document.addEventListener('keydown', function(event) {
+        // Check if the Enter key (keyCode 13) is pressed
+        if (event.keyCode === 13) {
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            const parentElement = range.startContainer.parentNode;
+
+            // If the cursor is inside <pre><code>, prevent adding extra <code> tag
+            if (parentElement.tagName === 'CODE' || (parentElement.tagName === 'PRE' && parentElement.firstChild.tagName === 'CODE')) {
+                event.preventDefault(); // Prevent the default Enter action (inserting a <code><br></code>)
+                document.execCommand('insertHTML', false, '<br>'); // Insert a line break without wrapping it in a <code> tag
+            }
+        }
+    });
+
   </script>
 
 </body>
