@@ -55,7 +55,7 @@ function fetchRecentBlogs() {
   const recentBlogsContainer = document.getElementById("recent-blogs");
 
   // Reference to the blogs in the Firebase database
-  const blogsRef = query(ref(database, "blogs"), limitToLast(6));
+  const blogsRef = query(ref(database, "blogs"), limitToLast(8));
 
   get(blogsRef)
     .then((snapshot) => {
@@ -69,6 +69,7 @@ function fetchRecentBlogs() {
         Object.entries(blogs)
           .reverse()
           .forEach(([key, blog]) => {
+            if (blog.visible == "private") return; // Skip if private
             const blogCard = `
               <div class="col-md-4 mb-3">
                 <div class="card">
